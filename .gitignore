@@ -2,9 +2,10 @@
 *.onnx
 *.csv
 
-# 캡처 / 로그 (생성 데이터)
+# 캡처 / 로그 / 사용자 오디오 (생성·바이너리 데이터)
 captured_sounds/
 noise_log.jsonl
+masking_sounds/
 
 # 실행 로그
 *.log

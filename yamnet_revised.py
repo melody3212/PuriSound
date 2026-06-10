@@ -122,31 +122,47 @@ def _cosine_sim(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def _load_audio_raw(filepath: str, target_sr: int = SAMPLE_RATE) -> "np.ndarray | None":
-    """MP3/WAV/OGG 파일 → float32 모노 numpy 배열 (target_sr 으로 리샘플링)."""
+    """MP3/WAV/OGG 파일 → float32 모노 numpy 배열 (target_sr 으로 리샘플링).
+    soundfile(WAV/FLAC/OGG) 우선, 실패 시 ffmpeg subprocess 사용 (Python 3.13+ 호환)."""
+    import subprocess
     data, sr = None, target_sr
 
-    # 1순위: soundfile (WAV/FLAC/OGG)
-    try:
-        import soundfile as sf
-        data, sr = sf.read(filepath, dtype="float32", always_2d=False)
-    except Exception:
-        pass
+    # 1순위: soundfile (WAV/FLAC/OGG — MP3 제외)
+    if os.path.splitext(filepath)[1].lower() != ".mp3":
+        try:
+            import soundfile as sf
+            data, sr = sf.read(filepath, dtype="float32", always_2d=False)
+        except Exception:
+            pass
 
-    # 2순위: pydub (MP3, FFmpeg 필요)
+    # 2순위: ffmpeg subprocess (MP3 포함 모든 포맷, pydub 불필요)
     if data is None:
         try:
-            from pydub import AudioSegment
-            seg = AudioSegment.from_file(filepath)
-            seg = seg.set_channels(1).set_sample_width(2).set_frame_rate(target_sr)
-            data = np.array(seg.get_array_of_samples(), dtype=np.float32) / 32768.0
-            sr = target_sr
+            cmd = [
+                "ffmpeg", "-i", filepath,
+                "-t", "30",             # 최대 30초만 디코딩 (분석·재생 모두 충분)
+                "-f", "f32le",          # raw float32 PCM
+                "-acodec", "pcm_f32le",
+                "-ar", str(target_sr),  # 리샘플링
+                "-ac", "1",             # 모노
+                "pipe:1",               # stdout 출력
+                "-loglevel", "quiet",
+            ]
+            proc = subprocess.run(cmd, capture_output=True, timeout=30)
+            if proc.returncode == 0 and proc.stdout:
+                data = np.frombuffer(proc.stdout, dtype=np.float32).copy()
+                sr = target_sr          # ffmpeg가 이미 리샘플링함
         except Exception as e:
             print(f"[마스킹] 로드 실패 ({os.path.basename(filepath)}): {e}", file=sys.stderr)
             return None
 
+    if data is None or len(data) == 0:
+        return None
+
     if data.ndim > 1:
         data = data.mean(axis=1)
 
+    # soundfile 경로만 리샘플링 필요 (ffmpeg는 이미 target_sr)
     if sr != target_sr:
         ratio = target_sr / sr
         new_len = int(len(data) * ratio)
