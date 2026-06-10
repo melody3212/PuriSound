@@ -567,8 +567,10 @@ class RealtimeSoundClassifier:
                     self.audio_buffer = np.roll(self.audio_buffer, -len(new_data))
                     self.audio_buffer[-len(new_data):] = new_data
 
-                    # 3. dB(SPL) 계산
-                    db = calculate_db_spl(self.audio_buffer)
+                    # 3. dB(SPL) 계산 — 현재 블록(0.5초)만 사용
+                    # 전체 버퍼(0.975초) 평균을 쓰면 충격음·짖음 같은
+                    # 순간 소음의 에너지가 희석되어 10dB 이상 낮게 측정됨
+                    db = calculate_db_spl(new_data)
 
                     # === 기존 YAMNet 추론 로직 유지 ===
                     ort_inputs = {"waveform": self.audio_buffer}

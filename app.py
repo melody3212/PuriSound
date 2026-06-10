@@ -38,6 +38,7 @@ CONFIG = {
 }
 
 
+
 def _is_running():
     return (
         _classifier is not None

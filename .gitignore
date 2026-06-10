@@ -6,6 +6,9 @@
 captured_sounds/
 noise_log.jsonl
 
+# 실행 로그
+*.log
+
 # Python
 __pycache__/
 *.pyc
