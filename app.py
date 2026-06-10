@@ -22,8 +22,10 @@ from flask import Flask, jsonify, request, render_template, Response, send_from_
 import yamnet_revised as _ym
 from yamnet_revised import RealtimeSoundClassifier, LOG_FILE
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CAP_DIR  = os.path.join(BASE_DIR, "captured_sounds")
+BASE_DIR     = os.path.dirname(os.path.abspath(__file__))
+CAP_DIR      = os.path.join(BASE_DIR, "captured_sounds")
+MASKING_DIR  = os.path.join(BASE_DIR, "masking_sounds")
+os.makedirs(MASKING_DIR, exist_ok=True)
 
 app = Flask(__name__)
 
@@ -72,7 +74,8 @@ def api_status():
                 "label": c.current_label,
                 "noise_type": st.current_noise_type,
                 "is_masking": st.is_masking,
-                "masking_noise": profile.get("masking") if st.is_masking else None,
+                "masking_noise":    profile.get("masking") if st.is_masking else None,
+                "match_scores":     c._last_match_scores,
             }
     else:
         data = {
@@ -161,6 +164,33 @@ def api_profiles_post():
     return jsonify({"ok": True, "profiles": _ym.NOISE_PROFILES})
 
 
+@app.route("/api/masking/analyze")
+def api_masking_analyze():
+    """masking_sounds/ 파일 스펙트럼 분석. 감지 시스템 실행 중이면 캐시 사용."""
+    if _is_running():
+        results = _classifier.masking.scan_files()
+    else:
+        results = _ym.scan_masking_files()
+    return jsonify({
+        "files":       results,
+        "band_labels": _ym._BAND_LABELS,
+    })
+
+
+@app.route("/api/masking/files")
+def api_masking_files():
+    """masking_sounds/ 폴더의 오디오 파일 목록 반환"""
+    exts = {".mp3", ".wav", ".ogg", ".flac", ".m4a"}
+    files = []
+    try:
+        for f in sorted(os.listdir(MASKING_DIR)):
+            if os.path.splitext(f)[1].lower() in exts:
+                files.append(f)
+    except Exception:
+        pass
+    return jsonify({"files": files})
+
+
 @app.route("/api/masking/play", methods=["POST"])
 def api_masking_play():
     if not _is_running():
@@ -168,8 +198,12 @@ def api_masking_play():
     body = request.get_json(silent=True) or {}
     noise_name = body.get("noise", "화이트")
     fade_in    = float(body.get("fade_in", 1.0))
-    if noise_name not in ("브라운", "핑크", "화이트"):
-        return jsonify({"ok": False, "msg": "noise 는 브라운/핑크/화이트 중 하나여야 합니다."})
+    builtin    = {"브라운", "핑크", "화이트"}
+    # 파일 이름이면 masking_sounds/ 에 존재 여부 확인
+    if noise_name not in builtin:
+        fp = os.path.join(MASKING_DIR, noise_name)
+        if not os.path.exists(fp):
+            return jsonify({"ok": False, "msg": f"파일 없음: masking_sounds/{noise_name}"})
     _classifier.masking_play(noise_name, fade_in)
     print(f"\n[대시보드] 수동 마스킹 재생: {noise_name}")
     return jsonify({"ok": True, "msg": f"{noise_name} 노이즈 재생 시작"})

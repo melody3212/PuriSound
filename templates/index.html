@@ -93,6 +93,18 @@ td select{width:90px}
 .apply-btn{width:100%;margin-top:10px;padding:8px;background:#1d4ed8;color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer}
 .apply-btn:hover{background:#2563eb}
 
+/* ── Spectrum analysis card ── */
+.spec-file{background:#0d1117;border:1px solid #21283a;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.spec-filename{font-size:.78rem;font-weight:700;color:#7dd3fc;margin-bottom:6px;display:flex;justify-content:space-between}
+.spec-bars{display:flex;gap:3px;align-items:flex-end;height:48px}
+.spec-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.spec-bar{width:100%;border-radius:2px 2px 0 0;transition:height .4s ease;min-height:2px}
+.spec-bar-label{font-size:.55rem;color:#475569;text-align:center;line-height:1.1;white-space:nowrap}
+.spec-dominant{font-size:.68rem;color:#a78bfa;margin-top:4px}
+.match-score-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.match-chip{font-size:.65rem;padding:2px 7px;border-radius:10px;background:#1e293b;color:#64748b;border:1px solid #334155}
+.match-chip.best{background:#1e3a5f;color:#7dd3fc;border-color:#3b82f6}
+
 /* ── Capture card ── */
 .cap-card{background:#0d1117;border:1px solid #21283a;border-radius:10px;overflow:hidden}
 .cap-card img{width:100%;display:block;cursor:pointer;transition:opacity .2s}
@@ -145,6 +157,16 @@ audio::-webkit-media-controls-panel{background:#1e293b}
         <button class="nbtn" id="nbtn-pink"  onclick="maskPlay('핑크')">● 핑크</button>
         <button class="nbtn" id="nbtn-white" onclick="maskPlay('화이트')">● 화이트</button>
         <button class="nbtn nbtn-stop" onclick="maskStop()">■ 중지</button>
+      </div>
+      <!-- 파일 재생 -->
+      <div style="margin-top:10px;display:flex;gap:6px;align-items:center">
+        <select id="file-select" style="flex:1;background:#0d1117;border:1px solid #334155;color:#e2e8f0;border-radius:6px;padding:5px 8px;font-size:.78rem">
+          <option value="" disabled selected>— 파일 선택 —</option>
+        </select>
+        <button class="nbtn" id="nbtn-file" onclick="maskPlayFile()" style="white-space:nowrap">▶ 파일 재생</button>
+      </div>
+      <div id="file-hint" style="font-size:.68rem;color:#334155;margin-top:4px">
+        masking_sounds/ 폴더에 MP3/WAV 파일을 넣으면 목록에 표시됩니다
       </div>
     </div>
   </div>
@@ -221,6 +243,28 @@ audio::-webkit-media-controls-panel{background:#1e293b}
           <tr><td colspan="7" style="color:#475569;text-align:center;padding:16px">로딩 중...</td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- ── 마스킹 파일 스펙트럼 분석 ── -->
+  <div class="card c12">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <span>마스킹 파일 스펙트럼 분석
+        <span style="color:#334155;font-weight:400;font-size:.68rem">
+          (masking_sounds/ 에 파일 추가 후 새로고침)
+        </span>
+      </span>
+      <button class="btn btn-gray" style="padding:4px 10px;font-size:.72rem" onclick="loadSpectrumAnalysis()">분석 새로고침</button>
+    </div>
+    <div id="spectrum-section">
+      <div style="color:#334155;font-size:.8rem;padding:12px 0">
+        masking_sounds/ 폴더에 MP3/WAV 파일을 넣고 분석 새로고침을 누르세요.<br>
+        소음 감지 시 각 파일의 주파수 특성과 소음의 주파수를 비교해 자동으로 가장 잘 맞는 파일을 재생합니다.
+      </div>
+    </div>
+    <div id="last-match-info" style="display:none;margin-top:10px;padding:10px;background:#0d1117;border-radius:8px;border:1px solid #21283a">
+      <div style="font-size:.7rem;color:#475569;margin-bottom:6px">최근 자동 선택 결과</div>
+      <div id="last-match-content"></div>
     </div>
   </div>
 
@@ -345,6 +389,9 @@ function connectSSE(){
         const b=document.getElementById('nbtn-'+k);
         if(b) b.className='nbtn'+(k===_activeNoise?' active':'');
       });
+      const fb=document.getElementById('nbtn-file');
+      if(fb) fb.className='nbtn'+(_activeNoise&&_activeNoise.startsWith('file:')?' active':'');
+      if(d.match_scores) updateMatchInfo(d.match_scores);
     }catch(_){}
   };
   es.onerror=()=>{
@@ -401,6 +448,8 @@ async function maskStop(){
       const b=document.getElementById('nbtn-'+k);
       if(b)b.className='nbtn';
     });
+    const fb=document.getElementById('nbtn-file');
+    if(fb)fb.className='nbtn';
   }
 }
 
@@ -418,24 +467,155 @@ async function applyConfig(){
   toast(d.ok?'파라미터 적용 완료':'적용 실패',d.ok);
 }
 
-// ── Profiles ─────────────────────────────────────────────────────────────────
-const MASKING_OPTS=['브라운','핑크','화이트'];
+// ── Spectrum Analysis ────────────────────────────────────────────────────────
+const BAND_COLORS = ['#818cf8','#60a5fa','#34d399','#facc15','#f97316','#f87171'];
 
+async function loadSpectrumAnalysis(){
+  const sec = document.getElementById('spectrum-section');
+  sec.innerHTML='<div style="color:#475569;font-size:.8rem;padding:8px">분석 중...</div>';
+  try{
+    const r = await fetch('/api/masking/analyze');
+    const d = await r.json();
+    const files = d.files || {};
+    const labels = d.band_labels || [];
+    const keys = Object.keys(files);
+
+    if(keys.length === 0){
+      sec.innerHTML='<div style="color:#334155;font-size:.8rem;padding:12px 0">'
+        +'masking_sounds/ 폴더에 파일 없음. MP3/WAV를 추가하세요.</div>';
+      return;
+    }
+
+    sec.innerHTML = keys.map(fname => {
+      const f = files[fname];
+      const bands = f.bands || [];
+      const maxVal = Math.max(...bands, 0.001);
+      const barsHtml = bands.map((v,i) => {
+        const h = Math.round((v / maxVal) * 44);
+        const pct = (v * 100).toFixed(1);
+        const shortLabel = labels[i] ? labels[i].split('(')[0] : i;
+        return `<div class="spec-bar-wrap">
+          <div class="spec-bar" style="height:${h}px;background:${BAND_COLORS[i]}" title="${labels[i]}: ${pct}%"></div>
+          <div class="spec-bar-label">${shortLabel}</div>
+        </div>`;
+      }).join('');
+
+      return `<div class="spec-file">
+        <div class="spec-filename">
+          <span>🎵 ${fname}</span>
+          <span style="color:#475569;font-weight:400">${f.duration}초</span>
+        </div>
+        <div class="spec-bars">${barsHtml}</div>
+        <div class="spec-dominant">주 대역: ${f.dominant_band}</div>
+      </div>`;
+    }).join('');
+
+    // 파일 드롭다운도 갱신
+    await loadMaskingFiles();
+  }catch(e){
+    sec.innerHTML='<div style="color:#ef4444;font-size:.8rem">분석 실패: '+e.message+'</div>';
+  }
+}
+
+function updateMatchInfo(matchScores){
+  const box = document.getElementById('last-match-info');
+  const content = document.getElementById('last-match-content');
+  if(!matchScores || Object.keys(matchScores).length === 0){
+    box.style.display='none'; return;
+  }
+  box.style.display='block';
+  const sorted = Object.entries(matchScores).sort((a,b)=>b[1]-a[1]);
+  const best = sorted[0][0];
+  content.innerHTML = sorted.map(([name,score],i)=>{
+    const pct = Math.round(score*100);
+    const isBest = i===0;
+    return `<span class="match-chip${isBest?' best':''}" title="${name}">
+      ${isBest?'▶ ':''}<b>${name}</b> ${pct}%
+    </span>`;
+  }).join(' ');
+}
+
+// ── Masking files ────────────────────────────────────────────────────────────
+const BUILTIN_OPTS=['브라운','핑크','화이트'];
+let _maskFiles=[];
+
+async function loadMaskingFiles(){
+  try{
+    const r=await fetch('/api/masking/files');
+    const d=await r.json();
+    _maskFiles=d.files||[];
+
+    // 수동 파일 선택 드롭다운 업데이트
+    const sel=document.getElementById('file-select');
+    // 기존 파일 옵션 제거 후 재구성
+    sel.innerHTML='<option value="" disabled selected>— 파일 선택 —</option>';
+    if(_maskFiles.length===0){
+      const o=document.createElement('option');
+      o.disabled=true; o.textContent='(파일 없음)';
+      sel.appendChild(o);
+    } else {
+      _maskFiles.forEach(f=>{
+        const o=document.createElement('option');
+        o.value=f; o.textContent=f;
+        sel.appendChild(o);
+      });
+    }
+    // 프로파일 테이블도 재렌더 (파일 목록 반영)
+    loadProfiles();
+  }catch(_){}
+}
+
+async function maskPlayFile(){
+  const sel=document.getElementById('file-select');
+  const name=sel.value;
+  if(!name){ toast('파일을 먼저 선택하세요',false); return; }
+  const r=await fetch('/api/masking/play',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({noise:name,fade_in:1.0})
+  });
+  const d=await r.json();
+  toast(d.msg,d.ok);
+  if(d.ok){
+    _activeNoise='file:'+name;
+    ['brown','pink','white'].forEach(k=>{
+      const b=document.getElementById('nbtn-'+k);
+      if(b)b.className='nbtn';
+    });
+    document.getElementById('nbtn-file').className='nbtn active';
+  }
+}
+
+// ── Profiles ─────────────────────────────────────────────────────────────────
 async function loadProfiles(){
   const r=await fetch('/api/profiles');
   const d=await r.json();
   renderProfiles(d.profiles);
 }
 
+function buildMaskingSelect(currentVal){
+  const opts=[];
+  // 내장 노이즈
+  BUILTIN_OPTS.forEach(o=>{
+    opts.push(`<option value="${o}"${o===currentVal?' selected':''}>${o}</option>`);
+  });
+  // 파일 구분선
+  if(_maskFiles.length>0){
+    opts.push(`<option disabled>── 파일 ──</option>`);
+    _maskFiles.forEach(f=>{
+      opts.push(`<option value="${f}"${f===currentVal?' selected':''}>${f}</option>`);
+    });
+  }
+  return opts.join('');
+}
+
 function renderProfiles(profiles){
   const tbody=document.getElementById('profile-body');
   tbody.innerHTML='';
   for(const[name,p] of Object.entries(profiles)){
-    const selOpts=MASKING_OPTS.map(o=>`<option value="${o}"${o===p.masking?' selected':''}>${o}</option>`).join('');
     const tr=document.createElement('tr');
     tr.innerHTML=`
       <td><span class="noise-tag">${name}</span></td>
-      <td><select class="p-masking">${selOpts}</select></td>
+      <td><select class="p-masking" style="width:120px">${buildMaskingSelect(p.masking)}</select></td>
       <td><input type="number" class="p-fadein"  value="${p.fade_in}"  min="0.5" max="10" step="0.5"></td>
       <td><input type="number" class="p-fadeout" value="${p.fade_out}" min="0.5" max="10" step="0.5"></td>
       <td><input type="number" class="p-start"   value="${p.start_sec}" min="1" max="30" step="1"></td>
@@ -559,12 +739,13 @@ async function initConfig(){
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
 initConfig();
-loadProfiles();
+loadSpectrumAnalysis();  // 스펙트럼 분석 + 파일 목록 + 프로파일 순서로 로드
 connectSSE();
 fetchLogs();
 fetchCaptures();
 setInterval(fetchLogs,5000);
 setInterval(fetchCaptures,10000);
+setInterval(loadMaskingFiles,30000);  // 30초마다 파일 목록 갱신
 </script>
 </body>
 </html>

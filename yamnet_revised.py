@@ -54,6 +54,7 @@ DETECT_LOG_INTERVAL = 1.0
 _BASE           = os.path.dirname(os.path.abspath(__file__))
 LOG_FILE        = os.path.join(_BASE, "noise_log.jsonl")
 OUTPUT_DIR      = os.path.join(_BASE, "captured_sounds")
+MASKING_DIR     = os.path.join(_BASE, "masking_sounds")   # 사용자 MP3/WAV 보관 폴더
 CAPTURE_COOLDOWN = 5.0   # 같은 유형 연속 캡처 최소 간격 (초)
 
 # =============================================================================
@@ -88,6 +89,97 @@ def calculate_db_spl(audio: np.ndarray) -> float:
         return 0.0
     db_spl = 20 * np.log10(rms / REFERENCE)
     return round(db_spl, 1)
+
+
+# =============================================================================
+# 스펙트럼 분석 — 자동 마스킹 매칭용
+# =============================================================================
+# 6개 주파수 대역 (Hz), 16kHz 기준 나이퀴스트 = 8000 Hz
+_BAND_EDGES  = [50, 160, 400, 1000, 2500, 5500, 8000]
+_BAND_LABELS = ["저음(50-160)", "하중음(160-400)", "중음(400-1k)",
+                "상중음(1k-2.5k)", "고음(2.5k-5.5k)", "초고음(5.5k-8k)"]
+
+
+def _band_energies(audio: np.ndarray, sr: int = SAMPLE_RATE) -> np.ndarray:
+    """오디오 배열 → 6개 주파수 대역 정규화 RMS 에너지 반환."""
+    n = max(len(audio), 2048)
+    seg = np.pad(audio, (0, max(0, n - len(audio))))[:n].astype(np.float32)
+    seg *= np.hanning(n)
+    power = np.abs(np.fft.rfft(seg)) ** 2
+    freqs = np.fft.rfftfreq(n, 1.0 / sr)
+    bands = np.zeros(len(_BAND_EDGES) - 1, dtype=np.float32)
+    for i in range(len(bands)):
+        mask = (freqs >= _BAND_EDGES[i]) & (freqs < _BAND_EDGES[i + 1])
+        if mask.any():
+            bands[i] = float(np.sqrt(power[mask].mean()))
+    total = bands.sum() + 1e-9
+    return bands / total
+
+
+def _cosine_sim(a: np.ndarray, b: np.ndarray) -> float:
+    """코사인 유사도 ∈ [0, 1]."""
+    return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-9))
+
+
+def _load_audio_raw(filepath: str, target_sr: int = SAMPLE_RATE) -> "np.ndarray | None":
+    """MP3/WAV/OGG 파일 → float32 모노 numpy 배열 (target_sr 으로 리샘플링)."""
+    data, sr = None, target_sr
+
+    # 1순위: soundfile (WAV/FLAC/OGG)
+    try:
+        import soundfile as sf
+        data, sr = sf.read(filepath, dtype="float32", always_2d=False)
+    except Exception:
+        pass
+
+    # 2순위: pydub (MP3, FFmpeg 필요)
+    if data is None:
+        try:
+            from pydub import AudioSegment
+            seg = AudioSegment.from_file(filepath)
+            seg = seg.set_channels(1).set_sample_width(2).set_frame_rate(target_sr)
+            data = np.array(seg.get_array_of_samples(), dtype=np.float32) / 32768.0
+            sr = target_sr
+        except Exception as e:
+            print(f"[마스킹] 로드 실패 ({os.path.basename(filepath)}): {e}", file=sys.stderr)
+            return None
+
+    if data.ndim > 1:
+        data = data.mean(axis=1)
+
+    if sr != target_sr:
+        ratio = target_sr / sr
+        new_len = int(len(data) * ratio)
+        data = np.interp(
+            np.linspace(0, len(data) - 1, new_len),
+            np.arange(len(data)), data,
+        ).astype(np.float32)
+
+    peak = np.max(np.abs(data))
+    if peak > 1e-6:
+        data = data / peak
+    return data
+
+
+def scan_masking_files() -> dict:
+    """MaskingPlayer 없이 masking_sounds/ 파일 스캔 + 스펙트럼 분석."""
+    results = {}
+    if not os.path.exists(MASKING_DIR):
+        return results
+    exts = {".mp3", ".wav", ".ogg", ".flac", ".m4a"}
+    for fname in sorted(os.listdir(MASKING_DIR)):
+        if os.path.splitext(fname)[1].lower() not in exts:
+            continue
+        data = _load_audio_raw(os.path.join(MASKING_DIR, fname))
+        if data is None:
+            continue
+        sp = _band_energies(data[:SAMPLE_RATE * 5])
+        results[fname] = {
+            "bands":         [round(float(v), 4) for v in sp],
+            "duration":      round(len(data) / SAMPLE_RATE, 1),
+            "dominant_band": _BAND_LABELS[int(np.argmax(sp))],
+        }
+    return results
 
 
 # =============================================================================
@@ -194,12 +286,17 @@ class NoiseState:
 # 7. 마스킹 오디오 출력 (Fade-in / Fade-out 포함)
 # =============================================================================
 class MaskingPlayer:
-    """화이트/핑크/브라운 노이즈를 생성해 출력 스트림으로 재생한다.
+    """화이트/핑크/브라운 노이즈 생성 + 사용자 MP3/WAV 파일 루프 재생.
     볼륨 램프는 numpy.linspace 로 만들고 audio_chunk * volume_ramp 로 적용한다."""
+
+    BUILTIN = {"브라운", "핑크", "화이트"}
+    FILE_EXTS = {".mp3", ".wav", ".ogg", ".flac", ".m4a"}
 
     def __init__(self, samplerate=SAMPLE_RATE, master_gain=0.3, buffer_sec=30):
         self.samplerate = samplerate
         self.master_gain = master_gain
+
+        os.makedirs(MASKING_DIR, exist_ok=True)
 
         n = int(samplerate * buffer_sec)
         self.buffers = {
@@ -207,6 +304,13 @@ class MaskingPlayer:
             "핑크":   self._make_noise("pink", n),
             "브라운": self._make_noise("brown", n),
         }
+        self._file_cache = {}        # filename → np.ndarray (메모리 캐시)
+        self._spectra    = {}        # name → np.ndarray(6,)  스펙트럼 프로파일
+
+        # 내장 노이즈 스펙트럼 사전 계산 (30초 버퍼의 앞 5초 분석)
+        for _name, _buf in self.buffers.items():
+            self._spectra[_name] = _band_energies(_buf[:samplerate * 5])
+
         self.current_buffer = self.buffers["화이트"]
         self.read_pos = 0
 
@@ -268,9 +372,73 @@ class MaskingPlayer:
         out = chunk * volume_ramp * self.master_gain
         outdata[:] = out.reshape(-1, 1).astype(np.float32)
 
+    def _load_file_buffer(self, filename: str) -> np.ndarray:
+        """파일을 로드하고 스펙트럼 프로파일을 캐시. 실패 시 화이트 노이즈 반환."""
+        if filename in self._file_cache:
+            return self._file_cache[filename]
+
+        filepath = os.path.join(MASKING_DIR, filename)
+        if not os.path.exists(filepath):
+            print(f"[마스킹] 파일 없음: {filepath} → 화이트 노이즈로 대체", file=sys.stderr)
+            return self.buffers["화이트"]
+
+        data = _load_audio_raw(filepath, self.samplerate)
+        if data is None:
+            return self.buffers["화이트"]
+
+        self._file_cache[filename] = data
+        self._spectra[filename] = _band_energies(data[:self.samplerate * 5])
+        print(f"[마스킹] {filename} 로드 완료 ({len(data)/self.samplerate:.1f}초) "
+              f"| 주 대역: {_BAND_LABELS[int(np.argmax(self._spectra[filename]))]}")
+        return data
+
+    def scan_files(self) -> dict:
+        """masking_sounds/ 파일 전체 스캔 + 스펙트럼 분석. API /api/masking/analyze 용."""
+        results = {}
+        if not os.path.exists(MASKING_DIR):
+            return results
+        for fname in sorted(os.listdir(MASKING_DIR)):
+            if os.path.splitext(fname)[1].lower() not in self.FILE_EXTS:
+                continue
+            buf = self._load_file_buffer(fname)
+            sp  = self._spectra.get(fname, np.zeros(len(_BAND_LABELS)))
+            results[fname] = {
+                "bands":         [round(float(v), 4) for v in sp],
+                "duration":      round(len(buf) / self.samplerate, 1),
+                "dominant_band": _BAND_LABELS[int(np.argmax(sp))],
+            }
+        return results
+
+    def best_masker(self, noise_audio: np.ndarray) -> tuple:
+        """noise_audio 스펙트럼에 가장 잘 맞는 마스커 이름과 유사도 점수 반환.
+        masking_sounds/ 에 파일이 있으면 파일을 우선 비교하고, 없으면 내장 노이즈만 비교."""
+        noise_profile = _band_energies(noise_audio)
+
+        # masking_sounds/ 의 새 파일 lazy-load
+        if os.path.exists(MASKING_DIR):
+            for f in os.listdir(MASKING_DIR):
+                if os.path.splitext(f)[1].lower() in self.FILE_EXTS and f not in self._spectra:
+                    self._load_file_buffer(f)
+
+        # 내장 노이즈 + 로드된 파일 전부 비교
+        scores = {
+            name: round(_cosine_sim(noise_profile, sp), 3)
+            for name, sp in self._spectra.items()
+        }
+        if not scores:
+            return "화이트", {}
+
+        best = max(scores, key=scores.get)
+        return best, scores
+
     def start(self, noise_name: str, fade_in: float):
-        """마스킹 시작 — fade_in 초에 걸쳐 볼륨을 0 -> 1 로 증가."""
-        self.current_buffer = self.buffers.get(noise_name, self.buffers["화이트"])
+        """마스킹 시작 — fade_in 초에 걸쳐 볼륨을 0 -> 1 로 증가.
+        noise_name 이 브라운/핑크/화이트 이면 생성 노이즈, 그 외엔 masking_sounds/ 파일."""
+        if noise_name in self.BUILTIN:
+            self.current_buffer = self.buffers.get(noise_name, self.buffers["화이트"])
+        else:
+            self.current_buffer = self._load_file_buffer(noise_name)
+        self.read_pos = 0
         self.target_volume = 1.0
         self.fade_rate = 1.0 / max(fade_in * self.samplerate, 1.0)
 
@@ -315,6 +483,9 @@ class RealtimeSoundClassifier:
         # 캡처 저장
         self._last_capture = {}   # noise_type -> last save timestamp
         os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+        # 자동 마스킹 매칭 결과 (대시보드 표시용)
+        self._last_match_scores = {}   # {name: similarity_score}
 
     # ---- 기존 로직 유지: 클래스맵 로드 ----------------------------------------
     def load_class_map(self, path):
@@ -465,15 +636,29 @@ class RealtimeSoundClassifier:
     def _start_masking(self):
         st = self.state
         profile = st.current_profile
-        masking_noise = profile["masking"]
+
+        # masking_sounds/ 에 파일이 있으면 스펙트럼 자동 매칭 사용
+        _has_files = os.path.exists(MASKING_DIR) and any(
+            os.path.splitext(f)[1].lower() in MaskingPlayer.FILE_EXTS
+            for f in os.listdir(MASKING_DIR)
+        )
+        if _has_files:
+            masking_noise, self._last_match_scores = self.masking.best_masker(self.audio_buffer)
+            _auto = True
+        else:
+            masking_noise = profile["masking"]
+            self._last_match_scores = {}
+            _auto = False
+
         st.is_masking = True
         st.silence_start_time = None
 
         self.masking.start(masking_noise, profile["fade_in"])
         log_event("masking_start", {
-            "noise_type": st.current_noise_type,
+            "noise_type":    st.current_noise_type,
             "masking_noise": masking_noise,
-            "fade_in_sec": profile["fade_in"],
+            "fade_in_sec":   profile["fade_in"],
+            "auto_matched":  _auto,
         })
 
     def _start_silence_timer(self):
