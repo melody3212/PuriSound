@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LG PuriSound — 소음 감지 대시보드</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d1117;color:#e2e8f0;min-height:100vh}
+
+/* ── Header ── */
+header{background:linear-gradient(135deg,#161b27,#1e2a3a);padding:14px 24px;border-bottom:1px solid #21283a;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+header .sub{color:#64748b;font-size:.78rem;margin-top:2px}
+.conn-dot{width:8px;height:8px;border-radius:50%;background:#64748b;display:inline-block;margin-right:6px;transition:background .3s}
+.conn-dot.ok{background:#22c55e;box-shadow:0 0 6px #22c55e}
+
+/* ── Layout ── */
+.page{max-width:1240px;margin:0 auto;padding:20px;display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+.c4{grid-column:span 4}.c6{grid-column:span 6}.c12{grid-column:span 12}
+@media(max-width:900px){.c4,.c6{grid-column:span 12}}
+
+/* ── Card ── */
+.card{background:#161b27;border:1px solid #21283a;border-radius:12px;padding:18px}
+.card-title{font-size:.7rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+
+/* ── Status badge ── */
+.status-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.dot{width:11px;height:11px;border-radius:50%;background:#475569;flex-shrink:0}
+.dot.running{background:#22c55e;box-shadow:0 0 8px #22c55e40;animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.status-label{font-size:1rem;font-weight:600}
+
+/* ── Buttons ── */
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:9px 16px;border:none;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;transition:opacity .15s,transform .1s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-green{background:#15803d;color:#fff}
+.btn-red  {background:#b91c1c;color:#fff}
+.btn-blue {background:#1d4ed8;color:#fff}
+.btn-gray {background:#1e293b;color:#94a3b8;border:1px solid #334155}
+
+/* ── Metrics ── */
+.metric{margin-bottom:12px}
+.metric-label{font-size:.7rem;color:#475569;margin-bottom:3px}
+.metric-value{font-size:1.45rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.metric-unit{font-size:.85rem;color:#64748b;margin-left:3px}
+.bar-wrap{background:#0d1117;border-radius:3px;height:6px;margin-top:5px;overflow:hidden}
+.bar{height:100%;border-radius:3px;transition:width .35s ease,background .35s ease;width:0}
+
+/* ── Masking badge ── */
+.mask-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:.82rem;font-weight:600;margin-top:6px;transition:background .3s,color .3s}
+.mask-badge.on {background:#1e3a8a;color:#93c5fd}
+.mask-badge.off{background:#1e293b;color:#475569}
+
+/* ── Manual masking ── */
+.noise-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.nbtn{padding:7px 13px;border:1px solid #334155;border-radius:8px;background:#1e293b;color:#94a3b8;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s}
+.nbtn:hover{border-color:#3b82f6;color:#93c5fd;background:#1e3a5f}
+.nbtn.active{background:#1d4ed8;border-color:#2563eb;color:#fff}
+.nbtn-stop{border-color:#7f1d1d;color:#fca5a5}
+.nbtn-stop:hover{background:#7f1d1d;color:#fff}
+
+/* ── Sliders ── */
+.slider-row{margin-bottom:12px}
+.slider-header{display:flex;justify-content:space-between;font-size:.75rem;color:#64748b;margin-bottom:4px}
+.slider-header .val{color:#e2e8f0;font-weight:600}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:#21283a;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#3b82f6;cursor:pointer}
+
+/* ── Profile table ── */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+th{color:#475569;text-align:left;padding:6px 8px;border-bottom:1px solid #21283a;font-weight:600;font-size:.68rem;text-transform:uppercase;white-space:nowrap}
+td{padding:5px 8px;border-bottom:1px solid #161b27;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+td input,td select{background:#0d1117;border:1px solid #334155;color:#e2e8f0;border-radius:5px;padding:3px 6px;font-size:.75rem;width:70px}
+td input:focus,td select:focus{outline:none;border-color:#3b82f6}
+td select{width:90px}
+.save-row-btn{padding:3px 8px;background:#1d4ed8;color:#fff;border:none;border-radius:5px;font-size:.72rem;cursor:pointer}
+.save-row-btn:hover{background:#2563eb}
+.noise-tag{display:inline-block;padding:2px 7px;border-radius:10px;background:#1e3a5f;color:#7dd3fc;font-size:.72rem;white-space:nowrap}
+
+/* ── Log table ── */
+.log-wrap{overflow-x:auto;max-height:280px;overflow-y:auto}
+.ev-noise_detected{color:#f59e0b}
+.ev-masking_start {color:#22c55e}
+.ev-masking_stop  {color:#94a3b8}
+.tag-pill{display:inline-block;padding:1px 7px;border-radius:10px;background:#1e3a5f;color:#7dd3fc;font-size:.7rem}
+
+/* ── Apply btn ── */
+.apply-btn{width:100%;margin-top:10px;padding:8px;background:#1d4ed8;color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer}
+.apply-btn:hover{background:#2563eb}
+
+/* ── Capture card ── */
+.cap-card{background:#0d1117;border:1px solid #21283a;border-radius:10px;overflow:hidden}
+.cap-card img{width:100%;display:block;cursor:pointer;transition:opacity .2s}
+.cap-card img:hover{opacity:.85}
+.cap-meta{padding:8px 10px}
+.cap-meta .cn{font-size:.72rem;font-weight:700;color:#7dd3fc}
+.cap-meta .ct{font-size:.68rem;color:#475569;margin-top:2px}
+.cap-meta audio{width:100%;margin-top:6px;height:28px}
+audio::-webkit-media-controls-panel{background:#1e293b}
+
+/* ── Lightbox ── */
+#lightbox{display:none;position:fixed;inset:0;background:#000000cc;z-index:500;align-items:center;justify-content:center;cursor:zoom-out}
+#lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 0 40px #0008}
+
+/* ── Toast ── */
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#161b27;border:1px solid #3b82f6;color:#93c5fd;padding:10px 20px;border-radius:8px;font-size:.83rem;display:none;z-index:999;transition:opacity .3s}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>LG PuriSound &nbsp;·&nbsp; 소음 감지 제어 대시보드</h1>
+    <div class="sub">YAMNet 기반 실시간 소음 마스킹 시스템</div>
+  </div>
+  <div style="font-size:.78rem;color:#475569">
+    <span class="conn-dot" id="conn-dot"></span><span id="conn-label">연결 중...</span>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- ── 시스템 제어 ── -->
+  <div class="card c4">
+    <div class="card-title">시스템 제어</div>
+    <div class="status-row">
+      <div class="dot" id="status-dot"></div>
+      <span class="status-label" id="status-label">중지됨</span>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-green" id="btn-start" onclick="startSystem()">▶ 감지 시작</button>
+      <button class="btn btn-red"   id="btn-stop"  onclick="stopSystem()" disabled>■ 감지 중지</button>
+    </div>
+
+    <div style="margin-top:18px">
+      <div class="card-title">마스킹 수동 제어</div>
+      <div style="font-size:.72rem;color:#475569;margin-bottom:6px">* 감지 시스템 실행 중에만 동작</div>
+      <div class="noise-btns">
+        <button class="nbtn" id="nbtn-brown" onclick="maskPlay('브라운')">● 브라운</button>
+        <button class="nbtn" id="nbtn-pink"  onclick="maskPlay('핑크')">● 핑크</button>
+        <button class="nbtn" id="nbtn-white" onclick="maskPlay('화이트')">● 화이트</button>
+        <button class="nbtn nbtn-stop" onclick="maskStop()">■ 중지</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 실시간 모니터링 ── -->
+  <div class="card c4">
+    <div class="card-title">실시간 모니터링</div>
+    <div class="metric">
+      <div class="metric-label">음압 레벨</div>
+      <span class="metric-value" id="db-val">—</span><span class="metric-unit">dB(SPL)</span>
+      <div class="bar-wrap"><div class="bar" id="db-bar"></div></div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">신뢰도</div>
+      <span class="metric-value" id="conf-val">—</span><span class="metric-unit">%</span>
+      <div class="bar-wrap"><div class="bar" id="conf-bar" style="background:#a855f7"></div></div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">감지 라벨</div>
+      <div class="metric-value" style="font-size:.9rem;word-break:break-all" id="label-val">—</div>
+    </div>
+    <div class="metric" style="margin-bottom:0">
+      <div class="metric-label">소음 유형</div>
+      <div class="metric-value" style="font-size:1rem" id="noise-type-val">—</div>
+    </div>
+    <div class="mask-badge off" id="mask-badge">
+      <span id="mask-icon">○</span><span id="mask-text">마스킹 비활성</span>
+    </div>
+  </div>
+
+  <!-- ── 감지 파라미터 ── -->
+  <div class="card c4">
+    <div class="card-title">감지 파라미터</div>
+
+    <div class="slider-row">
+      <div class="slider-header">입력 증폭 <span class="val" id="lbl-amp">2.0x</span></div>
+      <input type="range" id="sl-amp" min="0.5" max="10" step="0.5" value="2.0"
+             oninput="document.getElementById('lbl-amp').textContent=this.value+'x'">
+    </div>
+    <div class="slider-row">
+      <div class="slider-header">신뢰도 임계값 <span class="val" id="lbl-conf">40%</span></div>
+      <input type="range" id="sl-conf" min="10" max="90" step="5" value="40"
+             oninput="document.getElementById('lbl-conf').textContent=this.value+'%'">
+    </div>
+    <div class="slider-row">
+      <div class="slider-header">dB 하한선 <span class="val" id="lbl-db">40dB</span></div>
+      <input type="range" id="sl-db" min="20" max="80" step="2" value="40"
+             oninput="document.getElementById('lbl-db').textContent=this.value+'dB'">
+    </div>
+
+    <button class="apply-btn" onclick="applyConfig()">파라미터 적용</button>
+  </div>
+
+  <!-- ── 소음 유형별 프로파일 ── -->
+  <div class="card c12">
+    <div class="card-title" style="margin-bottom:10px">
+      소음 유형별 프로파일
+      <span style="color:#334155;font-weight:400;font-size:.68rem;margin-left:8px">각 행을 편집 후 저장 클릭</span>
+    </div>
+    <div class="tbl-wrap">
+      <table id="profile-table">
+        <thead>
+          <tr>
+            <th>소음 유형</th>
+            <th>마스킹 사운드</th>
+            <th>Fade-in (초)</th>
+            <th>Fade-out (초)</th>
+            <th>시작 판단 (초)</th>
+            <th>종료 침묵 (초)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="profile-body">
+          <tr><td colspan="7" style="color:#475569;text-align:center;padding:16px">로딩 중...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 캡처 미디어 뷰어 ── -->
+  <div class="card c12">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <span>캡처 미디어 <span style="color:#334155;font-weight:400;font-size:.68rem">(소음 감지 시 자동 저장 · 최신 30건)</span></span>
+      <button class="btn btn-gray" style="padding:4px 10px;font-size:.72rem" onclick="fetchCaptures()">새로고침</button>
+    </div>
+    <div id="capture-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+      <div style="color:#475569;text-align:center;padding:24px;grid-column:1/-1">캡처 없음</div>
+    </div>
+  </div>
+
+  <!-- ── 이벤트 로그 ── -->
+  <div class="card c12">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span>이벤트 로그 <span style="color:#334155;font-weight:400;font-size:.68rem">(최근 20건 · 5초 자동 갱신)</span></span>
+      <button class="btn btn-gray" style="padding:4px 10px;font-size:.72rem" onclick="fetchLogs()">새로고침</button>
+    </div>
+    <div class="log-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>시각</th><th>이벤트</th><th>소음 유형</th>
+            <th>dB</th><th>신뢰도</th><th>마스킹 사운드</th>
+          </tr>
+        </thead>
+        <tbody id="log-body">
+          <tr><td colspan="6" style="color:#475569;text-align:center;padding:18px">로그 없음</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div id="lightbox" onclick="this.style.display='none'">
+  <img id="lb-img" src="" alt="">
+</div>
+<div id="toast"></div>
+
+<script>
+// ── Toast ────────────────────────────────────────────────────────────────────
+function toast(msg, ok=true){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.borderColor=ok?'#22c55e':'#ef4444';
+  t.style.color=ok?'#86efac':'#fca5a5';
+  t.style.display='block';
+  clearTimeout(t._tid);
+  t._tid=setTimeout(()=>t.style.display='none',3000);
+}
+
+// ── Update UI from SSE data ──────────────────────────────────────────────────
+function updateUI(d){
+  // Connection indicator
+  document.getElementById('conn-dot').className='conn-dot ok';
+  document.getElementById('conn-label').textContent='연결됨';
+
+  // Start/Stop buttons
+  document.getElementById('btn-start').disabled=d.running;
+  document.getElementById('btn-stop').disabled=!d.running;
+
+  // Status dot & label
+  const dot=document.getElementById('status-dot');
+  dot.className='dot'+(d.running?' running':'');
+  document.getElementById('status-label').textContent=d.running?'실행 중':'중지됨';
+
+  if(d.running){
+    // dB
+    document.getElementById('db-val').textContent=d.db;
+    const dbPct=Math.min(100,Math.max(0,(d.db-30)/70*100));
+    const dbBar=document.getElementById('db-bar');
+    dbBar.style.width=dbPct+'%';
+    dbBar.style.background=d.db>40?'#ef4444':'#3b82f6';
+
+    // Confidence
+    document.getElementById('conf-val').textContent=d.confidence;
+    document.getElementById('conf-bar').style.width=Math.min(100,d.confidence)+'%';
+
+    // Label / Noise type
+    document.getElementById('label-val').textContent=d.label||'—';
+    document.getElementById('noise-type-val').textContent=d.noise_type||'—';
+
+    // Masking badge
+    const badge=document.getElementById('mask-badge');
+    if(d.is_masking){
+      badge.className='mask-badge on';
+      document.getElementById('mask-icon').textContent='■';
+      document.getElementById('mask-text').textContent='마스킹 재생 중';
+    } else {
+      badge.className='mask-badge off';
+      document.getElementById('mask-icon').textContent='○';
+      document.getElementById('mask-text').textContent='마스킹 비활성';
+    }
+  } else {
+    document.getElementById('db-val').textContent='—';
+    document.getElementById('conf-val').textContent='—';
+    document.getElementById('label-val').textContent='—';
+    document.getElementById('noise-type-val').textContent='—';
+    document.getElementById('db-bar').style.width='0';
+    document.getElementById('conf-bar').style.width='0';
+    const badge=document.getElementById('mask-badge');
+    badge.className='mask-badge off';
+    document.getElementById('mask-icon').textContent='○';
+    document.getElementById('mask-text').textContent='마스킹 비활성';
+  }
+}
+
+// ── SSE ──────────────────────────────────────────────────────────────────────
+let _activeNoise=null;
+function connectSSE(){
+  const es=new EventSource('/api/stream');
+  es.onmessage=e=>{
+    try{
+      const d=JSON.parse(e.data);
+      updateUI(d);
+      // Sync manual noise button highlights with actual masking state
+      if(!d.is_masking) _activeNoise=null;
+      ['brown','pink','white'].forEach(k=>{
+        const b=document.getElementById('nbtn-'+k);
+        if(b) b.className='nbtn'+(k===_activeNoise?' active':'');
+      });
+    }catch(_){}
+  };
+  es.onerror=()=>{
+    document.getElementById('conn-dot').className='conn-dot';
+    document.getElementById('conn-label').textContent='재연결 중...';
+    es.close();
+    setTimeout(connectSSE,3000);
+  };
+}
+
+// ── System control ───────────────────────────────────────────────────────────
+async function startSystem(){
+  document.getElementById('btn-start').disabled=true;
+  const r=await fetch('/api/start',{method:'POST'});
+  const d=await r.json();
+  toast(d.msg,d.ok);
+  if(!d.ok)document.getElementById('btn-start').disabled=false;
+}
+async function stopSystem(){
+  document.getElementById('btn-stop').disabled=true;
+  const r=await fetch('/api/stop',{method:'POST'});
+  const d=await r.json();
+  toast(d.msg,d.ok);
+  if(!d.ok)document.getElementById('btn-stop').disabled=false;
+}
+
+// ── Masking manual ───────────────────────────────────────────────────────────
+const NOISE_KEY={'브라운':'brown','핑크':'pink','화이트':'white'};
+async function maskPlay(name){
+  const r=await fetch('/api/masking/play',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({noise:name,fade_in:1.0})
+  });
+  const d=await r.json();
+  toast(d.msg,d.ok);
+  if(d.ok){
+    _activeNoise=NOISE_KEY[name];
+    ['brown','pink','white'].forEach(k=>{
+      const b=document.getElementById('nbtn-'+k);
+      if(b)b.className='nbtn'+(k===_activeNoise?' active':'');
+    });
+  }
+}
+async function maskStop(){
+  const r=await fetch('/api/masking/stop',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({fade_out:1.0})
+  });
+  const d=await r.json();
+  toast(d.msg,d.ok);
+  if(d.ok){
+    _activeNoise=null;
+    ['brown','pink','white'].forEach(k=>{
+      const b=document.getElementById('nbtn-'+k);
+      if(b)b.className='nbtn';
+    });
+  }
+}
+
+// ── Config ───────────────────────────────────────────────────────────────────
+async function applyConfig(){
+  const body={
+    amplify:       parseFloat(document.getElementById('sl-amp').value),
+    confidence_min:parseFloat(document.getElementById('sl-conf').value)/100,
+    db_threshold:  parseFloat(document.getElementById('sl-db').value),
+  };
+  const r=await fetch('/api/config',{
+    method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)
+  });
+  const d=await r.json();
+  toast(d.ok?'파라미터 적용 완료':'적용 실패',d.ok);
+}
+
+// ── Profiles ─────────────────────────────────────────────────────────────────
+const MASKING_OPTS=['브라운','핑크','화이트'];
+
+async function loadProfiles(){
+  const r=await fetch('/api/profiles');
+  const d=await r.json();
+  renderProfiles(d.profiles);
+}
+
+function renderProfiles(profiles){
+  const tbody=document.getElementById('profile-body');
+  tbody.innerHTML='';
+  for(const[name,p] of Object.entries(profiles)){
+    const selOpts=MASKING_OPTS.map(o=>`<option value="${o}"${o===p.masking?' selected':''}>${o}</option>`).join('');
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><span class="noise-tag">${name}</span></td>
+      <td><select class="p-masking">${selOpts}</select></td>
+      <td><input type="number" class="p-fadein"  value="${p.fade_in}"  min="0.5" max="10" step="0.5"></td>
+      <td><input type="number" class="p-fadeout" value="${p.fade_out}" min="0.5" max="10" step="0.5"></td>
+      <td><input type="number" class="p-start"   value="${p.start_sec}" min="1" max="30" step="1"></td>
+      <td><input type="number" class="p-stop"    value="${p.stop_sec}"  min="1" max="60" step="1"></td>
+      <td><button class="save-row-btn" onclick="saveRow(this,'${name}')">저장</button></td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+async function saveRow(btn,name){
+  const row=btn.closest('tr');
+  const body={profiles:{}};
+  body.profiles[name]={
+    masking:  row.querySelector('.p-masking').value,
+    fade_in:  parseFloat(row.querySelector('.p-fadein').value),
+    fade_out: parseFloat(row.querySelector('.p-fadeout').value),
+    start_sec:parseFloat(row.querySelector('.p-start').value),
+    stop_sec: parseFloat(row.querySelector('.p-stop').value),
+  };
+  const r=await fetch('/api/profiles',{
+    method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)
+  });
+  const d=await r.json();
+  toast(d.ok?`[${name}] 프로파일 저장됨`:'저장 실패',d.ok);
+}
+
+// ── Captures ─────────────────────────────────────────────────────────────────
+async function fetchCaptures(){
+  try{
+    const r=await fetch('/api/captures');
+    const d=await r.json();
+    const grid=document.getElementById('capture-grid');
+    if(!d.captures||d.captures.length===0){
+      grid.innerHTML='<div style="color:#475569;text-align:center;padding:24px;grid-column:1/-1">캡처 없음</div>';
+      return;
+    }
+    grid.innerHTML=d.captures.map(c=>{
+      // Parse timestamp from filename e.g. "대화_생활음_20260610_112233_41pct"
+      const parts=c.name.split('_');
+      const dateStr=parts.length>=3?parts[parts.length-3]:'';
+      const timeStr=parts.length>=2?parts[parts.length-2]:'';
+      const pctStr =parts.length>=1?parts[parts.length-1]:'';
+      let label='';
+      if(dateStr.length===8&&timeStr.length===6){
+        label=`${dateStr.slice(0,4)}-${dateStr.slice(4,6)}-${dateStr.slice(6,8)} `
+             +`${timeStr.slice(0,2)}:${timeStr.slice(2,4)}:${timeStr.slice(4,6)} · ${pctStr}`;
+      }
+      const imgTag=c.image
+        ?`<img src="/captures/${c.image}" alt="${c.noise_type}" loading="lazy"
+              onclick="openLightbox(this.src)">`
+        :`<div style="height:80px;background:#1e293b;display:flex;align-items:center;justify-content:center;color:#475569;font-size:.75rem">이미지 없음</div>`;
+      const audioTag=c.audio
+        ?`<audio controls preload="none"><source src="/captures/${c.audio}" type="audio/wav"></audio>`
+        :'';
+      return `<div class="cap-card">
+        ${imgTag}
+        <div class="cap-meta">
+          <div class="cn">${c.noise_type}</div>
+          <div class="ct">${label}</div>
+          ${audioTag}
+        </div>
+      </div>`;
+    }).join('');
+  }catch(_){}
+}
+
+function openLightbox(src){
+  const lb=document.getElementById('lightbox');
+  document.getElementById('lb-img').src=src;
+  lb.style.display='flex';
+}
+
+// ── Logs ─────────────────────────────────────────────────────────────────────
+const EV_LABELS={noise_detected:'소음 감지',masking_start:'마스킹 시작',masking_stop:'마스킹 종료'};
+
+async function fetchLogs(){
+  try{
+    const r=await fetch('/api/logs');
+    const d=await r.json();
+    const tbody=document.getElementById('log-body');
+    if(!d.logs||d.logs.length===0){
+      tbody.innerHTML='<tr><td colspan="6" style="color:#475569;text-align:center;padding:16px">로그 없음</td></tr>';
+      return;
+    }
+    tbody.innerHTML=d.logs.slice(0,20).map(log=>{
+      const ts=(log.timestamp||'').replace('T',' ').split('.')[0];
+      const ev=EV_LABELS[log.event]||log.event||'—';
+      const cls='ev-'+(log.event||'');
+      const nt=log.noise_type||'—';
+      const db=log.db!=null?log.db+' dB':'—';
+      const conf=log.confidence!=null?(log.confidence*100).toFixed(1)+'%':'—';
+      const mn=log.masking_noise||'—';
+      return `<tr>
+        <td style="color:#475569;white-space:nowrap;font-size:.72rem">${ts}</td>
+        <td class="${cls}">${ev}</td>
+        <td>${nt!=='—'?'<span class="tag-pill">'+nt+'</span>':nt}</td>
+        <td>${db}</td><td>${conf}</td><td>${mn}</td>
+      </tr>`;
+    }).join('');
+  }catch(_){}
+}
+
+// ── Init config sliders from server ─────────────────────────────────────────
+async function initConfig(){
+  try{
+    const r=await fetch('/api/status');
+    const d=await r.json();
+    updateUI(d);
+    if(d.config){
+      const c=d.config;
+      document.getElementById('sl-amp').value=c.amplify;
+      document.getElementById('lbl-amp').textContent=c.amplify+'x';
+      document.getElementById('sl-conf').value=Math.round(c.confidence_min*100);
+      document.getElementById('lbl-conf').textContent=Math.round(c.confidence_min*100)+'%';
+      document.getElementById('sl-db').value=c.db_threshold;
+      document.getElementById('lbl-db').textContent=c.db_threshold+'dB';
+    }
+  }catch(_){}
+}
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+initConfig();
+loadProfiles();
+connectSSE();
+fetchLogs();
+fetchCaptures();
+setInterval(fetchLogs,5000);
+setInterval(fetchCaptures,10000);
+</script>
+</body>
+</html>
