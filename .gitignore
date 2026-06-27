@@ -1,0 +1,35 @@
+# Secrets & credentials
+github_pat.txt
+**/firebase.json
+**/serviceAccount*.json
+**/google-services.json
+.env
+.env.*
+!.env.example
+credentials.json
+secrets.json
+*.pem
+*.key
+id_rsa*
+known_hosts
+
+# SSH / local deployment scripts
+ssh_*
+*.bat
+
+# Internal ops notes (device IDs, IPs, troubleshooting)
+memo/
+
+# Runtime / local server data
+17_server/data/*.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs & runtime
+*.log
+*.pid
+.send_firebase.pid

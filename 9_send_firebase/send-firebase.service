@@ -1,0 +1,21 @@
+[Unit]
+Description=PuriSound noise monitor (send_firebase.py)
+Documentation=file:///data/9_send_firebase/send_firebase.py
+After=network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hwchoi
+Group=hwchoi
+SupplementaryGroups=audio
+WorkingDirectory=/data/9_send_firebase
+Environment=SEND_FIREBASE_VENV=1
+ExecStart=/data/9_send_firebase/.venv/bin/python3 /data/9_send_firebase/send_firebase.py
+Restart=on-failure
+RestartSec=15
+StandardOutput=append:/data/9_send_firebase/send_firebase.log
+StandardError=append:/data/9_send_firebase/send_firebase.log
+
+[Install]
+WantedBy=multi-user.target

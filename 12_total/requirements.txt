@@ -1,0 +1,5 @@
+numpy>=1.24
+scipy>=1.10
+PyAudio>=0.2.13
+pygame>=2.5
+requests>=2.28

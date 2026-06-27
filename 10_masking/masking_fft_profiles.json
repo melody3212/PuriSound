@@ -1,0 +1,2003 @@
+{
+  "version": 1,
+  "source_folder": "/data/10_masking/masking_sounds",
+  "band_definitions": {
+    "sub_bass": {
+      "label": "초저음",
+      "range_hz": [
+        20,
+        60
+      ]
+    },
+    "bass": {
+      "label": "저음",
+      "range_hz": [
+        60,
+        300
+      ]
+    },
+    "low_mid": {
+      "label": "중저음",
+      "range_hz": [
+        300,
+        1000
+      ]
+    },
+    "mid": {
+      "label": "중음",
+      "range_hz": [
+        1000,
+        3500
+      ]
+    },
+    "high_mid": {
+      "label": "중고음",
+      "range_hz": [
+        3500,
+        8000
+      ]
+    },
+    "high": {
+      "label": "고음",
+      "range_hz": [
+        8000,
+        11000
+      ]
+    }
+  },
+  "match_band_definitions": {
+    "low": {
+      "label": "저음",
+      "range_hz": [
+        20,
+        300
+      ]
+    },
+    "mid": {
+      "label": "중음",
+      "range_hz": [
+        300,
+        3500
+      ]
+    },
+    "high": {
+      "label": "고음",
+      "range_hz": [
+        3500,
+        11000
+      ]
+    }
+  },
+  "fill_threshold": 0.15,
+  "profiles": [
+    {
+      "file": "cosmic-scapes-magic-deep-noise-for-lucid-dreaming-294825.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 499,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0405,
+          "percent": 4.0
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.6091,
+          "percent": 60.9
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.2869,
+          "percent": 28.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0497,
+          "percent": 5.0
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0112,
+          "percent": 1.1
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0026,
+          "percent": 0.3
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.6496,
+          "percent": 65.0
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.3366,
+          "percent": 33.7
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0138,
+          "percent": 1.4
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "cosmic-scapes-relaxing-layered-brown-noise-304725.mp3",
+      "sample_rate_hz": 48000,
+      "dominant_frequency_hz": 639,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.1597,
+          "percent": 16.0
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.4838,
+          "percent": 48.4
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.2555,
+          "percent": 25.6
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0632,
+          "percent": 6.3
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0324,
+          "percent": 3.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0054,
+          "percent": 0.5
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.6435,
+          "percent": 64.3
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.3187,
+          "percent": 31.9
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0378,
+          "percent": 3.8
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "중저음",
+        "초저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+      "sample_rate_hz": 48000,
+      "dominant_frequency_hz": 438,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.105,
+          "percent": 10.5
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.7478,
+          "percent": 74.8
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.0935,
+          "percent": 9.3
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.028,
+          "percent": 2.8
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0183,
+          "percent": 1.8
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0074,
+          "percent": 0.7
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.8528,
+          "percent": 85.3
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.1215,
+          "percent": 12.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0257,
+          "percent": 2.6
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음"
+      ],
+      "filled_match_bands": [
+        "저음"
+      ]
+    },
+    {
+      "file": "cosmic-scapes-soft-brown-noise-299934.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 981,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0596,
+          "percent": 6.0
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.5473,
+          "percent": 54.7
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.2188,
+          "percent": 21.9
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0989,
+          "percent": 9.9
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0538,
+          "percent": 5.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0217,
+          "percent": 2.2
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.6069,
+          "percent": 60.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.3176,
+          "percent": 31.8
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0755,
+          "percent": 7.5
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "cosmic-scapes-soothing-deep-noise-293777 (1).mp3",
+      "sample_rate_hz": 48000,
+      "dominant_frequency_hz": 831,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0522,
+          "percent": 5.2
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.5945,
+          "percent": 59.5
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.2208,
+          "percent": 22.1
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0712,
+          "percent": 7.1
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0438,
+          "percent": 4.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0175,
+          "percent": 1.8
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.6466,
+          "percent": 64.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.292,
+          "percent": 29.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0614,
+          "percent": 6.1
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "cosmic-scapes-soothing-deep-noise-293777.mp3",
+      "sample_rate_hz": 48000,
+      "dominant_frequency_hz": 831,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0522,
+          "percent": 5.2
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.5945,
+          "percent": 59.5
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.2208,
+          "percent": 22.1
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0712,
+          "percent": 7.1
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0438,
+          "percent": 4.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0175,
+          "percent": 1.8
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.6466,
+          "percent": 64.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.292,
+          "percent": 29.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0614,
+          "percent": 6.1
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "danevaer-dense-pink-noise-1-434730.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 3502,
+      "noise_color": "핑크",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0127,
+          "percent": 1.3
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.1198,
+          "percent": 12.0
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1623,
+          "percent": 16.2
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.308,
+          "percent": 30.8
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.2911,
+          "percent": 29.1
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.1061,
+          "percent": 10.6
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.1325,
+          "percent": 13.2
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.4703,
+          "percent": 47.0
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.3972,
+          "percent": 39.7
+        }
+      },
+      "dominant_band": "중음",
+      "dominant_match_band": "중음",
+      "filled_bands": [
+        "중음",
+        "중고음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "중음",
+        "고음"
+      ]
+    },
+    {
+      "file": "danevaer-low-pink-noise-434732.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 2938,
+      "noise_color": "핑크",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0051,
+          "percent": 0.5
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.0564,
+          "percent": 5.6
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.225,
+          "percent": 22.5
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.4362,
+          "percent": 43.6
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.2226,
+          "percent": 22.3
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0547,
+          "percent": 5.5
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.0615,
+          "percent": 6.2
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.6612,
+          "percent": 66.1
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.2774,
+          "percent": 27.7
+        }
+      },
+      "dominant_band": "중음",
+      "dominant_match_band": "중음",
+      "filled_bands": [
+        "중음",
+        "중저음",
+        "중고음"
+      ],
+      "filled_match_bands": [
+        "중음",
+        "고음"
+      ]
+    },
+    {
+      "file": "danevaer-white-noise-434731.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 5043,
+      "noise_color": "화이트",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0036,
+          "percent": 0.4
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.0251,
+          "percent": 2.5
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.0772,
+          "percent": 7.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.2721,
+          "percent": 27.2
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.4088,
+          "percent": 40.9
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.2131,
+          "percent": 21.3
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.0288,
+          "percent": 2.9
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.3493,
+          "percent": 34.9
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.6219,
+          "percent": 62.2
+        }
+      },
+      "dominant_band": "중고음",
+      "dominant_match_band": "고음",
+      "filled_bands": [
+        "중고음",
+        "중음",
+        "고음"
+      ],
+      "filled_match_bands": [
+        "고음",
+        "중음"
+      ]
+    },
+    {
+      "file": "dragon-studio-whitenoise-372485.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 1441,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0394,
+          "percent": 3.9
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.4912,
+          "percent": 49.1
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.235,
+          "percent": 23.5
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0987,
+          "percent": 9.9
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0838,
+          "percent": 8.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.052,
+          "percent": 5.2
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.5306,
+          "percent": 53.1
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.3337,
+          "percent": 33.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.1357,
+          "percent": 13.6
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "dreamingrelaxation-brown-noise-by-digitalspa-170337.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 1677,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.2391,
+          "percent": 23.9
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.2509,
+          "percent": 25.1
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1709,
+          "percent": 17.1
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.1746,
+          "percent": 17.5
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.1183,
+          "percent": 11.8
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0461,
+          "percent": 4.6
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.49,
+          "percent": 49.0
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.3455,
+          "percent": 34.5
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.1644,
+          "percent": 16.4
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "초저음",
+        "중음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음",
+        "고음"
+      ]
+    },
+    {
+      "file": "freesound_community-brownoisebasstretch-53359.mp3",
+      "sample_rate_hz": 24000,
+      "dominant_frequency_hz": 1098,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.3034,
+          "percent": 30.3
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.317,
+          "percent": 31.7
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1737,
+          "percent": 17.4
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.1074,
+          "percent": 10.7
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0697,
+          "percent": 7.0
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0288,
+          "percent": 2.9
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.6204,
+          "percent": 62.0
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.2811,
+          "percent": 28.1
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0985,
+          "percent": 9.8
+        }
+      },
+      "dominant_band": "저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "저음",
+        "초저음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "gingerleegalaxy_1-asmr-pink-noise-rain-fire-waterfall-mix-229779.mp3",
+      "sample_rate_hz": 48000,
+      "dominant_frequency_hz": 3601,
+      "noise_color": "화이트",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0392,
+          "percent": 3.9
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.1546,
+          "percent": 15.5
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1271,
+          "percent": 12.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.2579,
+          "percent": 25.8
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.2911,
+          "percent": 29.1
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.13,
+          "percent": 13.0
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.1938,
+          "percent": 19.4
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.385,
+          "percent": 38.5
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.4211,
+          "percent": 42.1
+        }
+      },
+      "dominant_band": "중고음",
+      "dominant_match_band": "고음",
+      "filled_bands": [
+        "중고음",
+        "중음",
+        "저음"
+      ],
+      "filled_match_bands": [
+        "고음",
+        "중음",
+        "저음"
+      ]
+    },
+    {
+      "file": "themediaguy-soft-soothing-deep-white-noise-378857.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 544,
+      "noise_color": "브라운",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.3871,
+          "percent": 38.7
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.3674,
+          "percent": 36.7
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1525,
+          "percent": 15.2
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0592,
+          "percent": 5.9
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.0244,
+          "percent": 2.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0095,
+          "percent": 0.9
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.7544,
+          "percent": 75.4
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.2117,
+          "percent": 21.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.0339,
+          "percent": 3.4
+        }
+      },
+      "dominant_band": "초저음",
+      "dominant_match_band": "저음",
+      "filled_bands": [
+        "초저음",
+        "저음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    {
+      "file": "whitenoisesleepers-pink-noise-from-the-surface-of-the-river-195101 (1).mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 3693,
+      "noise_color": "핑크",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0008,
+          "percent": 0.1
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.0362,
+          "percent": 3.6
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1988,
+          "percent": 19.9
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.365,
+          "percent": 36.5
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.2818,
+          "percent": 28.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.1174,
+          "percent": 11.7
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.037,
+          "percent": 3.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.5638,
+          "percent": 56.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.3992,
+          "percent": 39.9
+        }
+      },
+      "dominant_band": "중음",
+      "dominant_match_band": "중음",
+      "filled_bands": [
+        "중음",
+        "중고음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "중음",
+        "고음"
+      ]
+    },
+    {
+      "file": "whitenoisesleepers-pink-noise-from-the-surface-of-the-river-195101.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 3693,
+      "noise_color": "핑크",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0008,
+          "percent": 0.1
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.0362,
+          "percent": 3.6
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1988,
+          "percent": 19.9
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.365,
+          "percent": 36.5
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.2818,
+          "percent": 28.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.1174,
+          "percent": 11.7
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.037,
+          "percent": 3.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.5638,
+          "percent": 56.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.3992,
+          "percent": 39.9
+        }
+      },
+      "dominant_band": "중음",
+      "dominant_match_band": "중음",
+      "filled_bands": [
+        "중음",
+        "중고음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "중음",
+        "고음"
+      ]
+    },
+    {
+      "file": "whitenoisesleepers-pink-noise-ocean-waves-on-grainy-sand-195103.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 3056,
+      "noise_color": "핑크",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0729,
+          "percent": 7.3
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.2055,
+          "percent": 20.5
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.1667,
+          "percent": 16.7
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.1961,
+          "percent": 19.6
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.2511,
+          "percent": 25.1
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.1077,
+          "percent": 10.8
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.2784,
+          "percent": 27.8
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.3628,
+          "percent": 36.3
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.3588,
+          "percent": 35.9
+        }
+      },
+      "dominant_band": "중고음",
+      "dominant_match_band": "중음",
+      "filled_bands": [
+        "중고음",
+        "저음",
+        "중음",
+        "중저음"
+      ],
+      "filled_match_bands": [
+        "중음",
+        "고음",
+        "저음"
+      ]
+    },
+    {
+      "file": "whitenoisesleepers-rainy-day-in-town-with-birds-singing-194011 (1).mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 5259,
+      "noise_color": "화이트",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0049,
+          "percent": 0.5
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.0252,
+          "percent": 2.5
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.0348,
+          "percent": 3.5
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0776,
+          "percent": 7.8
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.8239,
+          "percent": 82.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0337,
+          "percent": 3.4
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.0301,
+          "percent": 3.0
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.1124,
+          "percent": 11.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.8576,
+          "percent": 85.8
+        }
+      },
+      "dominant_band": "중고음",
+      "dominant_match_band": "고음",
+      "filled_bands": [
+        "중고음"
+      ],
+      "filled_match_bands": [
+        "고음"
+      ]
+    },
+    {
+      "file": "whitenoisesleepers-rainy-day-in-town-with-birds-singing-194011.mp3",
+      "sample_rate_hz": 44100,
+      "dominant_frequency_hz": 5259,
+      "noise_color": "화이트",
+      "bands": {
+        "sub_bass": {
+          "label": "초저음",
+          "range_hz": [
+            20,
+            60
+          ],
+          "ratio": 0.0049,
+          "percent": 0.5
+        },
+        "bass": {
+          "label": "저음",
+          "range_hz": [
+            60,
+            300
+          ],
+          "ratio": 0.0252,
+          "percent": 2.5
+        },
+        "low_mid": {
+          "label": "중저음",
+          "range_hz": [
+            300,
+            1000
+          ],
+          "ratio": 0.0348,
+          "percent": 3.5
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            1000,
+            3500
+          ],
+          "ratio": 0.0776,
+          "percent": 7.8
+        },
+        "high_mid": {
+          "label": "중고음",
+          "range_hz": [
+            3500,
+            8000
+          ],
+          "ratio": 0.8239,
+          "percent": 82.4
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            8000,
+            11000
+          ],
+          "ratio": 0.0337,
+          "percent": 3.4
+        }
+      },
+      "match_bands": {
+        "low": {
+          "label": "저음",
+          "range_hz": [
+            20,
+            300
+          ],
+          "ratio": 0.0301,
+          "percent": 3.0
+        },
+        "mid": {
+          "label": "중음",
+          "range_hz": [
+            300,
+            3500
+          ],
+          "ratio": 0.1124,
+          "percent": 11.2
+        },
+        "high": {
+          "label": "고음",
+          "range_hz": [
+            3500,
+            11000
+          ],
+          "ratio": 0.8576,
+          "percent": 85.8
+        }
+      },
+      "dominant_band": "중고음",
+      "dominant_match_band": "고음",
+      "filled_bands": [
+        "중고음"
+      ],
+      "filled_match_bands": [
+        "고음"
+      ]
+    }
+  ]
+}
