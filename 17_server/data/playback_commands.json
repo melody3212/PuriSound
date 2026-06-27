@@ -1,0 +1,2005 @@
+[
+  {
+    "id": "62d25ce0-e1a9-4c71-9a49-63a448e0a73e",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "bWklVNIaRxGM40Prrz7n",
+    "detected_at": "2026-06-23T06:03:46.703313+00:00",
+    "command": {
+      "seq": 12,
+      "updated_at": 1782194627.380555,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 35,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:03:48.150331+00:00"
+  },
+  {
+    "id": "e591b046-c96b-45df-b75a-3c0d87082c9d",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "W9h70gyrFvzozmaFBCT8",
+    "detected_at": "2026-06-23T06:03:39.722991+00:00",
+    "command": {
+      "seq": 11,
+      "updated_at": 1782194621.0214047,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.824,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.824,
+          "match_score": 0.8959267289316983,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.824,
+      "noise_type": "brown",
+      "db": 53,
+      "masking_required": true,
+      "match_score": 0.8959267289316983,
+      "reason": "마스킹 시작 — 결핍 저음 / 1개 레이어",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T06:03:41.336718+00:00"
+  },
+  {
+    "id": "926cf8f3-d501-48ae-a1fe-b3b1458cbee7",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "xjtE6txQBZr7Z20PX8v7",
+    "detected_at": "2026-06-23T06:03:33.065489+00:00",
+    "command": {
+      "seq": 10,
+      "updated_at": 1782194613.6579704,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 47,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:03:33.961301+00:00"
+  },
+  {
+    "id": "81b77aeb-3452-4e9f-898c-8cefd7a2d5ff",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "V7XR5cTvYIl9TyC6prcy",
+    "detected_at": "2026-06-23T06:03:27.625324+00:00",
+    "command": {
+      "seq": 9,
+      "updated_at": 1782194608.2191741,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.824,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.824,
+          "match_score": 0.8025736512359237,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.824,
+      "noise_type": "brown",
+      "db": 53,
+      "masking_required": true,
+      "match_score": 0.8025736512359237,
+      "reason": "동일 트랙 조합 유지 (음량만 갱신)",
+      "deficient_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    "created_at": "2026-06-23T06:03:28.536698+00:00"
+  },
+  {
+    "id": "d6ad13f5-0aaf-4bf3-9aef-36d4e9a36bad",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "rvgbzXC4Pa7TYZFORDDt",
+    "detected_at": "2026-06-23T06:03:20.989796+00:00",
+    "command": {
+      "seq": 8,
+      "updated_at": 1782194601.6715631,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.808,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.808,
+          "match_score": 0.8671032388109359,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.808,
+      "noise_type": "brown",
+      "db": 51,
+      "masking_required": true,
+      "match_score": 0.8671032388109359,
+      "reason": "동일 트랙 조합 유지 (음량만 갱신)",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T06:03:22.001143+00:00"
+  },
+  {
+    "id": "6c23a282-af03-4119-8251-84759dc70dcd",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "pZI0GpiWgW7uuCqeHzVC",
+    "detected_at": "2026-06-23T06:03:15.443056+00:00",
+    "command": {
+      "seq": 7,
+      "updated_at": 1782194596.0427742,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.816,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.816,
+          "match_score": 0.8972693445306594,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.816,
+      "noise_type": "brown",
+      "db": 52,
+      "masking_required": true,
+      "match_score": 0.8972693445306594,
+      "reason": "마스킹 시작 — 결핍 저음 / 1개 레이어",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T06:03:16.355717+00:00"
+  },
+  {
+    "id": "05063ec5-8642-44d0-a12c-4f6b3ff5d808",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "WZfOOGfJijduaGv3juhl",
+    "detected_at": "2026-06-23T06:03:09.919520+00:00",
+    "command": {
+      "seq": 6,
+      "updated_at": 1782194590.5077384,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 43,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:03:10.819503+00:00"
+  },
+  {
+    "id": "cc90fdfc-ba34-4d0f-9bba-461a38319fd1",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "w1y19kVcLQt1Rv4JNUAC",
+    "detected_at": "2026-06-23T06:03:04.235351+00:00",
+    "command": {
+      "seq": 5,
+      "updated_at": 1782194584.8732917,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 41,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:03:05.400233+00:00"
+  },
+  {
+    "id": "d9998c75-9860-4b7f-9004-955747c2ad54",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "Zn0O9vOpj6EYHoqHtii3",
+    "detected_at": "2026-06-23T06:02:58.749415+00:00",
+    "command": {
+      "seq": 4,
+      "updated_at": 1782194579.353128,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 35,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:02:59.700157+00:00"
+  },
+  {
+    "id": "23357eb6-d8af-4de3-b09d-c33ed7619152",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "yiBF5uVfl3IHGKe3O7SD",
+    "detected_at": "2026-06-23T06:02:53.320142+00:00",
+    "command": {
+      "seq": 3,
+      "updated_at": 1782194573.9133527,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/danevaer-low-pink-noise-434732.mp3",
+          "name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.444,
+          "noise_type": "pink"
+        },
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.444,
+          "noise_type": "pink"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [
+        {
+          "file_name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.444,
+          "match_score": 0.0,
+          "fill_bands": []
+        },
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.444,
+          "match_score": 0.0,
+          "fill_bands": []
+        }
+      ],
+      "total_volume": 0.888,
+      "noise_type": "pink",
+      "db": 61,
+      "masking_required": true,
+      "match_score": 0.4937350335033503,
+      "reason": "노이즈 타입 동일 — 30초 홀드 중",
+      "deficient_bands": [
+        "중음",
+        "고음"
+      ]
+    },
+    "created_at": "2026-06-23T06:02:54.229181+00:00"
+  },
+  {
+    "id": "631ae967-9c32-4f1d-b951-9351ec11a697",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "BY7QiSuOFlBZbtK3RrqE",
+    "detected_at": "2026-06-23T06:02:47.696355+00:00",
+    "command": {
+      "seq": 2,
+      "updated_at": 1782194568.390396,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/danevaer-low-pink-noise-434732.mp3",
+          "name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.597,
+          "noise_type": "pink"
+        },
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.315,
+          "noise_type": "pink"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.597,
+          "match_score": 0.4024321324927449,
+          "fill_bands": [
+            "중음",
+            "고음"
+          ]
+        },
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.315,
+          "match_score": 0.21236200644451114,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.912,
+      "noise_type": "pink",
+      "db": 64,
+      "masking_required": true,
+      "match_score": 0.4024321324927449,
+      "reason": "마스킹 시작 — 결핍 저음, 중음, 고음 / 2개 레이어",
+      "deficient_bands": [
+        "저음",
+        "중음",
+        "고음"
+      ]
+    },
+    "created_at": "2026-06-23T06:02:48.714181+00:00"
+  },
+  {
+    "id": "9975b2f9-8643-4c33-a2cc-a46a7ac66f3d",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "ge8eMvMAe4jfBtEyo4tJ",
+    "detected_at": "2026-06-23T06:02:38.840068+00:00",
+    "command": {
+      "seq": 1,
+      "updated_at": 1782194562.4491217,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "pink",
+      "db": 48,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:02:42.777690+00:00"
+  },
+  {
+    "id": "6df4b0af-cd4d-4fc6-9c3f-3a82764421ef",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "jbxhWZXNLJCPDF9YM8Vk",
+    "detected_at": "2026-06-23T06:02:03.452551+00:00",
+    "command": {
+      "seq": 52,
+      "updated_at": 1782194524.0410454,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 35,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:02:04.360234+00:00"
+  },
+  {
+    "id": "9381899c-2d25-4adc-b84a-cab64d1630e5",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "ubSZyb1DzOPVWNuabj1m",
+    "detected_at": "2026-06-23T06:01:58.111241+00:00",
+    "command": {
+      "seq": 51,
+      "updated_at": 1782194518.7207353,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 35,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:59.032703+00:00"
+  },
+  {
+    "id": "cce17937-82aa-4843-9059-cda0dd3be685",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "z2e8BvwNOu3FEMo6MvHh",
+    "detected_at": "2026-06-23T06:01:52.687982+00:00",
+    "command": {
+      "seq": 50,
+      "updated_at": 1782194513.2886057,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 36,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:53.501664+00:00"
+  },
+  {
+    "id": "fb81e34c-77c6-45c0-9848-6c13cb49567d",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "rJnJZSG7KBnJr1YLN5AF",
+    "detected_at": "2026-06-23T06:01:47.261716+00:00",
+    "command": {
+      "seq": 49,
+      "updated_at": 1782194507.8665922,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 39,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:48.179363+00:00"
+  },
+  {
+    "id": "9fccf36c-98ce-4ed3-a1bd-8091ef12ef74",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "9cQ5DGX7npGgFP1RvniO",
+    "detected_at": "2026-06-23T06:01:41.939804+00:00",
+    "command": {
+      "seq": 48,
+      "updated_at": 1782194502.4341333,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 37,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:42.755486+00:00"
+  },
+  {
+    "id": "b083d669-df99-492c-8241-097e34d697d3",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "n7VywGhtXCoxcywcFPjf",
+    "detected_at": "2026-06-23T06:01:36.616889+00:00",
+    "command": {
+      "seq": 47,
+      "updated_at": 1782194497.1084914,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 37,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:37.422819+00:00"
+  },
+  {
+    "id": "53fb3a98-27bd-410b-80ec-2a43c7f8c27c",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "pKmH7LYFV6dTx6OG3eVs",
+    "detected_at": "2026-06-23T06:01:31.309284+00:00",
+    "command": {
+      "seq": 46,
+      "updated_at": 1782194491.8855002,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 43,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:32.204759+00:00"
+  },
+  {
+    "id": "cd3ee142-2400-445e-ad6e-21585717b482",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "vjdGtjRmxoelk1ljwG8R",
+    "detected_at": "2026-06-23T06:01:25.960923+00:00",
+    "command": {
+      "seq": 45,
+      "updated_at": 1782194486.5614915,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.856,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.856,
+          "match_score": 0.9092821144702521,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.856,
+      "noise_type": "brown",
+      "db": 57,
+      "masking_required": true,
+      "match_score": 0.9092821144702521,
+      "reason": "마스킹 시작 — 결핍 저음 / 1개 레이어",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T06:01:26.877335+00:00"
+  },
+  {
+    "id": "0f3cb3be-0721-4404-bc3a-5b01313edda6",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "Em7AGTfhx9gqaz7qgC9r",
+    "detected_at": "2026-06-23T06:01:20.432157+00:00",
+    "command": {
+      "seq": 44,
+      "updated_at": 1782194481.236311,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 47,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:21.553235+00:00"
+  },
+  {
+    "id": "33549cf3-1ecc-4dd7-8a6f-6447da45495e",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "SdqaDljniGkmVd9berDi",
+    "detected_at": "2026-06-23T06:01:14.611315+00:00",
+    "command": {
+      "seq": 43,
+      "updated_at": 1782194475.2004852,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 40,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:15.933766+00:00"
+  },
+  {
+    "id": "34b95b99-4e3b-4ec3-90ae-b93834f38167",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "es0POz1OtMFpEqRoFaN2",
+    "detected_at": "2026-06-23T06:01:08.863284+00:00",
+    "command": {
+      "seq": 42,
+      "updated_at": 1782194469.465452,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.808,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.808,
+          "match_score": 0.8983199704997763,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.808,
+      "noise_type": "brown",
+      "db": 51,
+      "masking_required": true,
+      "match_score": 0.8983199704997763,
+      "reason": "마스킹 시작 — 결핍 저음 / 1개 레이어",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T06:01:09.784891+00:00"
+  },
+  {
+    "id": "5538878e-8da3-42ae-8116-4b07a1a0fd49",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "iwNtEIxqyvCc9BwDq7zB",
+    "detected_at": "2026-06-23T06:01:03.433774+00:00",
+    "command": {
+      "seq": 41,
+      "updated_at": 1782194464.0318298,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 34,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:01:04.350449+00:00"
+  },
+  {
+    "id": "5c529ae9-b975-413c-9595-98563c83347d",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "hSkx1Ufk5pGM4yA9O0Wn",
+    "detected_at": "2026-06-23T06:00:58.320745+00:00",
+    "command": {
+      "seq": 40,
+      "updated_at": 1782194458.8100777,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.84,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.84,
+          "match_score": 0.9019731543098276,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.84,
+      "noise_type": "brown",
+      "db": 55,
+      "masking_required": true,
+      "match_score": 0.9019731543098276,
+      "reason": "동일 트랙 조합 유지 (음량만 갱신)",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T06:00:59.022062+00:00"
+  },
+  {
+    "id": "6da3233b-9924-4138-8fd0-340fa4f019e1",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "TZSHJopCGtBLQLdKfhSJ",
+    "detected_at": "2026-06-23T06:00:52.886124+00:00",
+    "command": {
+      "seq": 39,
+      "updated_at": 1782194453.4882863,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.864,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.864,
+          "match_score": 0.8963541399692909,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.864,
+      "noise_type": "brown",
+      "db": 58,
+      "masking_required": true,
+      "match_score": 0.8963541399692909,
+      "reason": "마스킹 시작 — 결핍 저음 / 1개 레이어",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T06:00:53.802893+00:00"
+  },
+  {
+    "id": "d8fc4499-7ba6-4a2f-ae19-ea6ae07a222e",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "1NnNIVKlHLuSMaebC598",
+    "detected_at": "2026-06-23T06:00:47.560964+00:00",
+    "command": {
+      "seq": 38,
+      "updated_at": 1782194448.1616359,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 47,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:48.486950+00:00"
+  },
+  {
+    "id": "43c9a4a0-e0bc-4f20-851f-925e59516b46",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "wvIXT4eG4YoxvNnl4KiB",
+    "detected_at": "2026-06-23T06:00:42.234185+00:00",
+    "command": {
+      "seq": 37,
+      "updated_at": 1782194442.836991,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 48,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:43.150357+00:00"
+  },
+  {
+    "id": "4740bf0a-5297-4e15-9793-43f204d4b12b",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "YQi3k3LydRzP5OACieaC",
+    "detected_at": "2026-06-23T06:00:36.908001+00:00",
+    "command": {
+      "seq": 36,
+      "updated_at": 1782194437.5115578,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 48,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:37.825643+00:00"
+  },
+  {
+    "id": "81208b4a-3499-47d4-a879-6b2f95465a1b",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "TeHL1AohJMUSZiyBtq2s",
+    "detected_at": "2026-06-23T06:00:31.586757+00:00",
+    "command": {
+      "seq": 35,
+      "updated_at": 1782194432.1873336,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:32.500255+00:00"
+  },
+  {
+    "id": "04c4950d-ca27-4c3f-94e1-be109b763b78",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "w4TlBXgch05cbgB732lr",
+    "detected_at": "2026-06-23T06:00:26.269110+00:00",
+    "command": {
+      "seq": 34,
+      "updated_at": 1782194426.862009,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:27.176565+00:00"
+  },
+  {
+    "id": "9939d8fb-dcf0-4eb0-a0e8-4b6596bb5cff",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "9Rs2KY6RcQt9neOErVlr",
+    "detected_at": "2026-06-23T06:00:20.737434+00:00",
+    "command": {
+      "seq": 33,
+      "updated_at": 1782194421.5338533,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 46,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:21.848397+00:00"
+  },
+  {
+    "id": "ba4c2e80-da0f-4494-a937-4a54b378e1f2",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "XMtu8HHv2GNo7kZMwN0K",
+    "detected_at": "2026-06-23T06:00:15.216393+00:00",
+    "command": {
+      "seq": 32,
+      "updated_at": 1782194415.7991312,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 49,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:16.320624+00:00"
+  },
+  {
+    "id": "4642a072-5955-43d2-81f1-bb571e1a7c90",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "f6lWj6sI8GRlJUGX7pwR",
+    "detected_at": "2026-06-23T06:00:09.880799+00:00",
+    "command": {
+      "seq": 31,
+      "updated_at": 1782194410.4770758,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:10.791442+00:00"
+  },
+  {
+    "id": "94a55199-f4c4-42ae-863a-18b029d4472f",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "unGNiqR5XXWojJCkknUD",
+    "detected_at": "2026-06-23T06:00:04.551135+00:00",
+    "command": {
+      "seq": 30,
+      "updated_at": 1782194405.1519175,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 44,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T06:00:05.465964+00:00"
+  },
+  {
+    "id": "cd25d828-5a3e-45fc-bcab-36abaf458acc",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "7jwmBU5eYJGS3XNZGIKt",
+    "detected_at": "2026-06-23T05:59:58.618749+00:00",
+    "command": {
+      "seq": 29,
+      "updated_at": 1782194399.8247628,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.8,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.8,
+          "match_score": 0.797967563191604,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.8,
+      "noise_type": "brown",
+      "db": 50,
+      "masking_required": true,
+      "match_score": 0.797967563191604,
+      "reason": "마스킹 시작 — 결핍 저음, 중음 / 1개 레이어",
+      "deficient_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    "created_at": "2026-06-23T06:00:00.141059+00:00"
+  },
+  {
+    "id": "72e82516-8239-431c-89bb-84359a709dda",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "AoRd8bDtZkzQn0xepLJ8",
+    "detected_at": "2026-06-23T05:59:53.390214+00:00",
+    "command": {
+      "seq": 28,
+      "updated_at": 1782194393.8880277,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 44,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:54.202263+00:00"
+  },
+  {
+    "id": "12b0752f-a6a4-492a-b1c7-1c70fe793b90",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "lMHMG9tB1sA5TWS8Z2N0",
+    "detected_at": "2026-06-23T05:59:48.061052+00:00",
+    "command": {
+      "seq": 27,
+      "updated_at": 1782194388.6647074,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:48.979674+00:00"
+  },
+  {
+    "id": "b1427d9e-33e1-4cbb-a5a3-a15e5c913c19",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "kXEF0MNf0AsHiPHqG3hU",
+    "detected_at": "2026-06-23T05:59:42.449252+00:00",
+    "command": {
+      "seq": 26,
+      "updated_at": 1782194383.4421856,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:43.654167+00:00"
+  },
+  {
+    "id": "95aa2f63-9b8e-4f0c-b686-54dc678088ee",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "MKVT9JOFQ1M55gvskeLU",
+    "detected_at": "2026-06-23T05:59:37.132951+00:00",
+    "command": {
+      "seq": 25,
+      "updated_at": 1782194377.7079012,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 46,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:38.021306+00:00"
+  },
+  {
+    "id": "e891bcbe-ddb7-484e-834d-532f159eac52",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "NS4p4uFR1HLe2Uktimxr",
+    "detected_at": "2026-06-23T05:59:31.894971+00:00",
+    "command": {
+      "seq": 24,
+      "updated_at": 1782194372.382747,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:32.696798+00:00"
+  },
+  {
+    "id": "9e6732e3-eae1-484d-83cd-a15498f6ab86",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "O8VSeXqVLA2IDam2Gjei",
+    "detected_at": "2026-06-23T05:59:26.672449+00:00",
+    "command": {
+      "seq": 23,
+      "updated_at": 1782194367.2635818,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.808,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.808,
+          "match_score": 0.8701053075671898,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.808,
+      "noise_type": "brown",
+      "db": 51,
+      "masking_required": true,
+      "match_score": 0.8701053075671898,
+      "reason": "동일 트랙 조합 유지 (음량만 갱신)",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T05:59:27.475663+00:00"
+  },
+  {
+    "id": "f6339c3b-cd9b-4f95-b8ec-2e576e25f803",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "me815uprqvEQmZX1rapL",
+    "detected_at": "2026-06-23T05:59:21.446857+00:00",
+    "command": {
+      "seq": 22,
+      "updated_at": 1782194361.9381926,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.824,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.824,
+          "match_score": 0.8310953693857905,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.824,
+      "noise_type": "brown",
+      "db": 53,
+      "masking_required": true,
+      "match_score": 0.8310953693857905,
+      "reason": "마스킹 시작 — 결핍 저음, 중음 / 1개 레이어",
+      "deficient_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    "created_at": "2026-06-23T05:59:22.252325+00:00"
+  },
+  {
+    "id": "78373019-ee90-4932-a86f-7e61ba3c13cb",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "dykq3Yf8zNPSqfI8khA3",
+    "detected_at": "2026-06-23T05:59:16.215104+00:00",
+    "command": {
+      "seq": 21,
+      "updated_at": 1782194356.8174984,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:17.029389+00:00"
+  },
+  {
+    "id": "9802d639-0b1d-4eed-9104-c378053dc1eb",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "KIamuvImWGjj3FV4FxFD",
+    "detected_at": "2026-06-23T05:59:10.913185+00:00",
+    "command": {
+      "seq": 20,
+      "updated_at": 1782194351.4926949,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 49,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:11.806998+00:00"
+  },
+  {
+    "id": "48714273-3a1c-4dba-b7e9-565738fcf78d",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "SCKrFnAj3Qz1ATK4Poo8",
+    "detected_at": "2026-06-23T05:59:05.566172+00:00",
+    "command": {
+      "seq": 19,
+      "updated_at": 1782194346.1677682,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 47,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:06.481972+00:00"
+  },
+  {
+    "id": "9a28dde0-e169-44a8-8fd7-7dd4cf655493",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "wAlEMQkhuNZxbuElbtfZ",
+    "detected_at": "2026-06-23T05:59:00.262704+00:00",
+    "command": {
+      "seq": 18,
+      "updated_at": 1782194340.8426993,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 46,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:59:01.156381+00:00"
+  },
+  {
+    "id": "49ba2525-2632-4d04-bf67-a40d72c20224",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "oHjhfm48Z4f7pGqB3zQb",
+    "detected_at": "2026-06-23T05:58:54.521547+00:00",
+    "command": {
+      "seq": 17,
+      "updated_at": 1782194335.5163088,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 44,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:58:55.831071+00:00"
+  },
+  {
+    "id": "053762c8-30ef-43ce-9041-82d095a904b0",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "QHA5pNyu31orMEIPNtDv",
+    "detected_at": "2026-06-23T05:58:49.179446+00:00",
+    "command": {
+      "seq": 16,
+      "updated_at": 1782194329.783081,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 46,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:58:50.096259+00:00"
+  },
+  {
+    "id": "87ae05da-e1dd-46a1-b3c0-148270b10837",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "wwfiyunU4VbiFXKlUjhJ",
+    "detected_at": "2026-06-23T05:58:42.839523+00:00",
+    "command": {
+      "seq": 15,
+      "updated_at": 1782194324.4578295,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 44,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:58:44.772948+00:00"
+  },
+  {
+    "id": "23781ed9-b46b-42b5-8ff0-def06372962a",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "9oDKtCQQ2xyzQa6FfPLp",
+    "detected_at": "2026-06-23T05:58:37.519606+00:00",
+    "command": {
+      "seq": 14,
+      "updated_at": 1782194318.1157029,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 43,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:58:38.430289+00:00"
+  },
+  {
+    "id": "f39623d4-0664-479b-8d2a-3da295eedb8c",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "UWVmzublJyx62tMhPlH0",
+    "detected_at": "2026-06-23T05:58:32.199965+00:00",
+    "command": {
+      "seq": 13,
+      "updated_at": 1782194312.7909145,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:58:33.104747+00:00"
+  },
+  {
+    "id": "f8fcc5d8-5484-49e1-aa55-2ae5ce7768b4",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "LgpoGgE84yCugx3OWekp",
+    "detected_at": "2026-06-23T05:58:26.855762+00:00",
+    "command": {
+      "seq": 12,
+      "updated_at": 1782194307.4661126,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 36,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:58:27.773709+00:00"
+  },
+  {
+    "id": "1db916ff-df0e-4460-90e6-46dca649f4ae",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "uGyJwykmmCzAjlZtWOUM",
+    "detected_at": "2026-06-23T05:58:20.416074+00:00",
+    "command": {
+      "seq": 11,
+      "updated_at": 1782194302.136165,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:58:22.454690+00:00"
+  },
+  {
+    "id": "ed9c4838-3e33-46c4-976b-10fb580eac81",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "wgHcYDGChKuvG1Qx8ibf",
+    "detected_at": "2026-06-23T05:58:15.083521+00:00",
+    "command": {
+      "seq": 10,
+      "updated_at": 1782194295.683011,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.832,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.832,
+          "match_score": 0.8403245051908498,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.832,
+      "noise_type": "brown",
+      "db": 54,
+      "masking_required": true,
+      "match_score": 0.8403245051908498,
+      "reason": "동일 트랙 조합 유지 (음량만 갱신)",
+      "deficient_bands": [
+        "저음"
+      ]
+    },
+    "created_at": "2026-06-23T05:58:16.005367+00:00"
+  },
+  {
+    "id": "b4af4d54-aa9a-4368-996c-45ef1b744b6a",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "nPwLjCWaMHNRKg6U4oVs",
+    "detected_at": "2026-06-23T05:58:05.255570+00:00",
+    "command": {
+      "seq": 9,
+      "updated_at": 1782194285.8522775,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.8,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.8,
+          "match_score": 0.8101610182772604,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.8,
+      "noise_type": "brown",
+      "db": 50,
+      "masking_required": true,
+      "match_score": 0.8101610182772604,
+      "reason": "트랙 조합 교체 — 결핍 저음, 중음 / 1개 레이어",
+      "deficient_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    "created_at": "2026-06-23T05:58:06.166226+00:00"
+  },
+  {
+    "id": "2aed2b49-b56a-4624-ad9f-f082f0430c20",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "jiU2qthaOUhSdJbacr5y",
+    "detected_at": "2026-06-23T05:57:59.824164+00:00",
+    "command": {
+      "seq": 8,
+      "updated_at": 1782194280.4274669,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/danevaer-low-pink-noise-434732.mp3",
+          "name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.872,
+          "noise_type": "pink"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.872,
+          "match_score": 0.6889672471062335,
+          "fill_bands": [
+            "중음",
+            "고음"
+          ]
+        }
+      ],
+      "total_volume": 0.872,
+      "noise_type": "pink",
+      "db": 59,
+      "masking_required": true,
+      "match_score": 0.6889672471062335,
+      "reason": "마스킹 시작 — 결핍 중음, 고음 / 1개 레이어",
+      "deficient_bands": [
+        "중음",
+        "고음"
+      ]
+    },
+    "created_at": "2026-06-23T05:58:00.741150+00:00"
+  },
+  {
+    "id": "e840ef15-fa5e-4534-a016-fdeb8da2f4c0",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "fUjJiJKMMa0LMLQ5hzq9",
+    "detected_at": "2026-06-23T05:57:54.396850+00:00",
+    "command": {
+      "seq": 7,
+      "updated_at": 1782194274.9997108,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "stop",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 49,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:57:55.316651+00:00"
+  },
+  {
+    "id": "a71853b6-b3d3-4b55-8499-dd9075972fae",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "CpTJ0OXjbCG9VGH0Wbpm",
+    "detected_at": "2026-06-23T05:57:49.086286+00:00",
+    "command": {
+      "seq": 6,
+      "updated_at": 1782194269.6735198,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/danevaer-low-pink-noise-434732.mp3",
+          "name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.904,
+          "noise_type": "pink"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "danevaer-low-pink-noise-434732.mp3",
+          "volume": 0.904,
+          "match_score": 0.6058029592095349,
+          "fill_bands": [
+            "중음"
+          ]
+        }
+      ],
+      "total_volume": 0.904,
+      "noise_type": "pink",
+      "db": 63,
+      "masking_required": true,
+      "match_score": 0.6058029592095349,
+      "reason": "트랙 조합 교체 — 결핍 저음, 중음 / 1개 레이어",
+      "deficient_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    "created_at": "2026-06-23T05:57:49.987818+00:00"
+  },
+  {
+    "id": "09bb979d-f375-46ba-b882-8476cf9c14dd",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "zRQYxRrbHuyB96Y1XhTU",
+    "detected_at": "2026-06-23T05:57:43.764537+00:00",
+    "command": {
+      "seq": 5,
+      "updated_at": 1782194264.3489778,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.952,
+          "noise_type": "brown"
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.952,
+          "match_score": 0.757366294159233,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.952,
+      "noise_type": "brown",
+      "db": 69,
+      "masking_required": true,
+      "match_score": 0.757366294159233,
+      "reason": "마스킹 시작 — 결핍 저음, 중음 / 1개 레이어",
+      "deficient_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    "created_at": "2026-06-23T05:57:44.663029+00:00"
+  },
+  {
+    "id": "32b51c1b-b9f8-4cbd-96a9-d01915a05b75",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "JAC6ezeZnO6XkkpN8of7",
+    "detected_at": "2026-06-23T05:57:38.437166+00:00",
+    "command": {
+      "seq": 4,
+      "updated_at": 1782194259.0285947,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 49,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:57:39.343048+00:00"
+  },
+  {
+    "id": "ed9cf289-7ae9-4c05-b6e9-f6624630e3a3",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "mDEyUDFsFueKuUOV6qTw",
+    "detected_at": "2026-06-23T05:57:32.912530+00:00",
+    "command": {
+      "seq": 3,
+      "updated_at": 1782194253.696525,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 45,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:57:34.010031+00:00"
+  },
+  {
+    "id": "9954f056-4711-499b-8cd5-20833ef6ad8c",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "Pd7yEq8BryssykwBvlbT",
+    "detected_at": "2026-06-23T05:57:27.574528+00:00",
+    "command": {
+      "seq": 2,
+      "updated_at": 1782194248.1670501,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 42,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:57:28.480141+00:00"
+  },
+  {
+    "id": "38b4c69f-7253-4413-9d8c-f09d62f9b967",
+    "device_id": "8hrILeQckybyPOvhGY6R3MBio9s2_primary",
+    "noise_event_id": "rE8woXMNitEt7LlxCdXM",
+    "detected_at": "2026-06-23T05:57:18.448474+00:00",
+    "command": {
+      "seq": 1,
+      "updated_at": 1782194242.8460727,
+      "action": "stop",
+      "tracks": [],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "hold",
+      "tracks": [],
+      "total_volume": 0.0,
+      "noise_type": "brown",
+      "db": 46,
+      "masking_required": false,
+      "match_score": 0.0,
+      "reason": "마스킹 불필요 (조용함)",
+      "deficient_bands": []
+    },
+    "created_at": "2026-06-23T05:57:23.160029+00:00"
+  },
+  {
+    "id": "082bd13c-bdd2-44a8-bd88-c8e90b571d4c",
+    "device_id": "test_device",
+    "noise_event_id": "test_event_1",
+    "detected_at": "2026-06-23T10:00:00+00:00",
+    "command": {
+      "seq": 1,
+      "updated_at": 1782193621.161337,
+      "action": "play",
+      "tracks": [
+        {
+          "path": "/data/10_masking/masking_sounds/cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.816
+        }
+      ],
+      "source": "9_send_firebase"
+    },
+    "decision": {
+      "action": "play",
+      "tracks": [
+        {
+          "file_name": "cosmic-scapes-sci-fi-ambience-soothing-spaceship-engine-sound-loop-296976.mp3",
+          "volume": 0.816,
+          "match_score": 0.7963789145348967,
+          "fill_bands": [
+            "저음"
+          ]
+        }
+      ],
+      "total_volume": 0.816,
+      "noise_type": "brown",
+      "db": 52,
+      "masking_required": true,
+      "match_score": 0.7963789145348967,
+      "reason": "마스킹 시작 — 결핍 저음, 중음 / 1개 레이어",
+      "deficient_bands": [
+        "저음",
+        "중음"
+      ]
+    },
+    "created_at": "2026-06-23T05:47:01.182864+00:00"
+  }
+]

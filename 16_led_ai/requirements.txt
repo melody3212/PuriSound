@@ -1,0 +1,1 @@
+# rpi-ws281x는 /data/1_LED/venv 에 설치됨 (ensure_venv.py가 자동 전환)

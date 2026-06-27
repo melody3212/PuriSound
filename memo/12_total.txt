@@ -1,0 +1,100 @@
+12_total
+================================================================================
+
+작성일: 2026-06-23
+경로: /data/12_total
+
+
+개요
+--------------------------------------------------------------------------------
+
+노이즈 분석(9) → 마스킹 재생(7) → LED 동기화(11) → Firebase 전송을
+단일 프로세스에서 통합 실행하는 올인원 컨트롤러입니다.
+
+14~16번 분리 아키텍처 이전의 모놀리식 통합 버전으로,
+옵션 없이 실행하면 분석·재생·LED·Firebase가 모두 동작합니다.
+
+
+주요 파일
+--------------------------------------------------------------------------------
+
+  total_controller.py   메인 통합 컨트롤러
+  audio_player.py       pygame 기반 마스킹 재생 (MaskingPlayer)
+  masking_matcher.py    10_masking 프로필 + 6_FFT MP3 매칭
+  led_worker.py         LED 워커 (subprocess, 1_LED venv)
+  firebase_push.py      Firebase 백그라운드 전송 (subprocess)
+  duration_timer.py     재생/정지 누적 시간 추적
+  state_sync.py         /tmp/total_state.json 상태 기록
+  noise_colors.py       노이즈 색상 매핑
+  run.sh                python3 total_controller.py 실행 래퍼
+  requirements.txt      numpy, scipy, PyAudio, pygame 등
+
+
+실행 방법
+--------------------------------------------------------------------------------
+
+  cd /data/12_total
+  python3 total_controller.py              # 전체 파이프라인 (기본)
+  python3 total_controller.py --list-devices
+  python3 total_controller.py --no-led     # LED 비활성
+  python3 total_controller.py --no-firebase
+  python3 total_controller.py --dry-run
+  python3 total_controller.py --yamnet     # YAMNet API 사용
+  ./run.sh
+
+
+동작 구조
+--------------------------------------------------------------------------------
+
+  메인 스레드:
+    - PyAudio 마이크 2초 FFT 분석 (8_MIC_FFT)
+    - 10_masking 프로필 + 6_FFT MP3로 최적 마스킹 선택
+    - audio_player로 마스킹 재생/정지/교체
+    - state_sync로 LED 워커에 상태 전달
+
+  백그라운드:
+    - firebase_push: 4초 주기 Firebase 전송 (9_send_firebase 로직 재사용)
+    - led_worker: 1_LED venv로 LED 그라데이션 표시
+
+
+기본 설정
+--------------------------------------------------------------------------------
+
+  마스킹 분석 주기  : 2초 (--interval)
+  Firebase 전송 주기: 4초 (--firebase-interval)
+  마스킹 시작 dB    : 40 (--db-threshold)
+  홀드 시간         : 30초 (--hold-sec, 트랙 교체 방지)
+  프로필 JSON       : /data/10_masking/masking_fft_profiles.json
+  MP3 폴더          : /data/6_FFT/masking_sounds (기본)
+
+
+프로젝트 내 역할
+--------------------------------------------------------------------------------
+
+  - 1~11번 모듈의 기능을 하나로 묶은 프로토타입
+  - 14_noise_ai + 15_player_ai + 16_led_ai 분리 구조의 선행 버전
+  - 마이크 단일 점유 — 9_send_firebase와 동시 실행 불가
+
+
+주요 이슈
+--------------------------------------------------------------------------------
+
+[1] 마스킹 사운드 경로 불일치
+  프로필은 10_masking, MP3는 6_FFT 기본.
+  14번은 프로필·MP3 모두 10_masking 사용. 경로 통일 필요.
+
+[2] firebase_admin 스텁 처리
+  send_firebase import 시 venv 재실행 방지를 위해 firebase_admin 스텁 삽입.
+  Firebase 기능은 firebase_push subprocess로 분리.
+
+[3] pygame + PyAudio 동시 사용
+  audio_player(pygame)와 마이크(PyAudio)가 같은 프로세스.
+  ALSA 버퍼 충돌 가능.
+
+[4] 14~16번과 역할 중복
+  12번: 단일 프로세스, 디버그·데모에 적합
+  14~16번: 프로세스 분리, 운영·확장에 적합
+  실제 배포 시 14~16번 권장.
+
+[5] USB 마이크 독점
+  9_send_firebase, 12_total 등 마이크 사용 프로세스 동시 실행 불가.

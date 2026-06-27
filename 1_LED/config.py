@@ -1,0 +1,9 @@
+"""네오픽셀 스트립 설정."""
+
+LED_COUNT = 16
+LED_PIN = 10          # BCM GPIO 10, 물리 핀 19 (SPI MOSI)
+LED_FREQ_HZ = 800000
+LED_DMA = 10
+LED_INVERT = False
+LED_BRIGHTNESS = 64   # 0~255
+LED_CHANNEL = 0

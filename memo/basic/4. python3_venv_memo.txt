@@ -1,0 +1,116 @@
+python3 기본 환경 실행 + rpi_ws281x 자동 전환 정리
+================================================================================
+
+작성일: 2026-06-17
+
+
+문제
+--------------------------------------------------------------------------------
+
+아래처럼 시스템 python3로 실행하면 오류가 났다.
+
+  python3 /data/1_LED/neopixel_test.py
+  python3 /data/4_loadtest/load_test.py
+
+  ModuleNotFoundError: No module named 'rpi_ws281x'
+
+원인:
+  - rpi-ws281x 패키지는 /data/1_LED/venv 에만 설치되어 있음
+  - venv/bin/python3 는 /usr/bin/python3 로 연결된 심볼릭 링크
+  - 실행 파일 경로만 보면 시스템 python3와 같아 보이지만,
+    venv python으로 실행해야 venv의 site-packages가 적용됨
+
+
+해결 (적용 완료)
+--------------------------------------------------------------------------------
+
+/data/1_LED/ensure_venv.py 추가.
+
+동작:
+  1. rpi_ws281x import 시도
+  2. 성공하면 그대로 실행
+  3. 실패하고 아직 venv가 아니면 -> venv python으로 자동 재실행
+  4. venv인데도 없으면 재실행하지 않음 (무한 루프 방지)
+
+적용된 파일:
+  - /data/1_LED/neopixel_test.py
+  - /data/4_loadtest/load_test.py
+
+
+이제 이렇게 실행하면 됨
+--------------------------------------------------------------------------------
+
+[LED 테스트]
+  cd /data/1_LED
+  python3 neopixel_test.py
+
+[30분 부하 테스트]
+  cd /data/4_loadtest
+  python3 load_test.py
+
+[짧게 확인 (5분)]
+  python3 /data/4_loadtest/load_test.py -t 5
+
+시스템 python3를 쳐도 내부에서 venv python으로 자동 전환된다.
+
+
+다른 실행 방법 (모두 동일하게 동작)
+--------------------------------------------------------------------------------
+
+  python3 /data/4_loadtest/load_test.py
+  /data/4_loadtest/run.sh
+  /data/1_LED/venv/bin/python3 /data/4_loadtest/load_test.py
+
+  source /data/1_LED/venv/bin/activate
+  python3 load_test.py
+
+
+스피커 / 마이크는 venv 불필요
+--------------------------------------------------------------------------------
+
+  cd /data/2_speaker
+  python3 speaker_test.py
+
+  cd /data/3_mic
+  python3 mic_test.py
+  python3 mic_test.py --playback
+
+이 스크립트들은 시스템 python3 + aplay/arecord 만 있으면 된다.
+
+
+프로젝트 폴더 구조
+--------------------------------------------------------------------------------
+
+  /data/1_LED/       네오픽셀 (SPI, venv + ensure_venv)
+  /data/2_speaker/   3.5mm 스피커 테스트
+  /data/3_mic/       USB 마이크 테스트
+  /data/4_loadtest/  LED+스피커+마이크 동시 30분 부하 테스트
+  /data/memo/        메모
+  /data/error/       오류/설정 정리 문서
+
+
+ensure_venv.py 핵심 코드
+--------------------------------------------------------------------------------
+
+  def reexec_if_needed():
+      try:
+          import rpi_ws281x
+          return
+      except ImportError:
+          pass
+
+      if _in_venv():
+          return
+
+      if os.path.isfile(VENV_PYTHON):
+          os.execv(VENV_PYTHON, [VENV_PYTHON] + sys.argv)
+
+
+참고
+--------------------------------------------------------------------------------
+
+  - LED 실행: 1_LED venv 필요 (자동 전환됨)
+  - SPI 설정: dtparam=spi=on, GPIO 10
+  - 스피커: plughw:1,0 (3.5mm)
+  - 마이크: plughw:3,0 (USB)
+  - 부하 테스트 로그: /data/4_loadtest/load_test.log

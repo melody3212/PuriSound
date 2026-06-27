@@ -1,0 +1,112 @@
+1_LED 실행 오류 정리
+================================================================================
+
+작성일: 2026-06-17
+대상 경로: /data/1_LED
+
+
+요약
+--------------------------------------------------------------------------------
+
+1_LED 폴더의 네오픽셀 코드는 올바른 Python(venv)으로 실행하면 정상 동작함을 확인했다.
+LED가 실제로 점등된 실행 명령:
+
+  cd /data/1_LED
+  ./venv/bin/python3 neopixel_test.py
+
+실행이 안 되는 경우, 대부분 잘못된 Python 인터프리터 사용 또는 GPIO 점유 충돌이 원인이다.
+
+
+스크립트별 올바른 실행 방법
+--------------------------------------------------------------------------------
+
+[neopixel_test.py]
+  용도      : WS2812B 16구 네오픽셀 (메인)
+  필요 패키지: rpi-ws281x (venv에만 설치됨)
+  실행 방법  : ./venv/bin/python3 neopixel_test.py
+
+[test_led.py]
+  용도      : 구버전 단순 GPIO LED 테스트
+  필요 패키지: gpiozero (시스템 Python에만 있음)
+  실행 방법  : python3 test_led.py
+
+venv 활성화 후 실행 (동일):
+
+  cd /data/1_LED
+  source venv/bin/activate
+  python3 neopixel_test.py
+
+
+확인된 오류와 원인
+--------------------------------------------------------------------------------
+
+1. ModuleNotFoundError: No module named 'rpi_ws281x'
+   원인: 시스템 Python으로 neopixel_test.py 실행
+   해결: venv Python 사용
+
+     ./venv/bin/python3 neopixel_test.py
+
+2. ModuleNotFoundError: No module named 'gpiozero'
+   원인: venv Python으로 test_led.py 실행
+   해결: 시스템 Python 사용
+
+     python3 test_led.py
+
+   참고: requirements.txt에는 rpi-ws281x만 있고 gpiozero는 없음
+
+3. lgpio.error: 'GPIO busy'
+   원인: GPIO 12가 다른 프로세스에 점유됨 (예: 이전에 실행된 test_led.py가 종료되지 않음)
+   해결: 점유 프로세스 확인 후 종료
+
+     ps aux | grep test_led
+     kill <PID>
+
+4. 오류: SPI가 비활성화되어 있습니다.
+   원인: /dev/spidev0.0 없음
+   해결:
+
+     sudo /data/1_LED/setup_spi.sh
+     sudo reboot
+
+
+하드웨어 / 설정 상태 (2026-06-17 확인)
+--------------------------------------------------------------------------------
+
+  SPI (/dev/spidev0.0)  : 활성화됨
+  dtparam=spi=on        : 설정됨
+  core_freq=250         : 설정됨 (Pi 3 SPI 타이밍용)
+  dtparam=audio=on      : 설정됨 (SPI 모드와 충돌 없음)
+  네오픽셀 핀           : GPIO 10 (물리 핀 19, SPI MOSI)
+  LED 개수              : 16구 (WS2812B)
+
+배선:
+  DIN -> GPIO 10 (물리 핀 19)
+  GND -> 라즈베리파이 GND (공통)
+  5V  -> 외부/적절한 5V 전원
+
+
+증상별 판단
+--------------------------------------------------------------------------------
+
+  No module named 'gpiozero'       -> venv로 test_led.py 실행
+  No module named 'rpi_ws281x'     -> 시스템 Python으로 neopixel_test.py 실행
+  GPIO busy                        -> GPIO 12를 다른 프로세스가 점유 중
+  스크립트는 도는데 LED 안 켜짐    -> 배선(GPIO 10), 전원, LED 스트립 문제
+  SPI 오류 메시지                  -> SPI 미활성화, setup_spi.sh 후 재부팅
+
+
+PWM 모드 관련 (현재 코드와 무관)
+--------------------------------------------------------------------------------
+
+  setup_pwm_audio.sh, pwm_audio.py 는 PWM(GPIO 12) 네오픽셀용
+  현재 neopixel_test.py 는 SPI(GPIO 10) 모드 사용
+  따라서 dtparam=audio=on 과 충돌하지 않음
+
+
+권장 실행 명령 (최종)
+--------------------------------------------------------------------------------
+
+  cd /data/1_LED
+  ./venv/bin/python3 neopixel_test.py
+
+Ctrl+C로 종료. 종료 시 모든 LED가 OFF 됨.

@@ -1,0 +1,20 @@
+# Secrets & credentials
+github_pat.txt
+**/firebase.json
+.env
+.env.*
+
+# SSH / local deployment scripts
+ssh_*.bat
+*.bat
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs & runtime
+*.log
+*.pid
+.send_firebase.pid

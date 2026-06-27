@@ -1,0 +1,8 @@
+firebase.json
+.venv/
+__pycache__/
+*.pyc
+*.log
+.send_firebase.pid
+last_capture.wav
+wav_analysis_grid.jpg

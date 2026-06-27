@@ -1,0 +1,140 @@
+14_noise_ai
+================================================================================
+
+작성일: 2026-06-23
+경로: /data/14_noise_ai
+
+
+개요
+--------------------------------------------------------------------------------
+
+Firebase noiseEvents(13번 DB)와 10_masking FFT 프로필을 결합해
+최적 마스킹 트랙·음량을 결정하고, 15_player_ai에 재생 명령을 전송하는
+AI 마스킹 결정 엔진입니다.
+
+마이크·재생·LED를 직접 제어하지 않고, /tmp/player_ai_command.json IPC로
+15번에 명령만 보냅니다. 15·16번은 별도 터미널에서 실행해야 합니다.
+
+
+주요 파일
+--------------------------------------------------------------------------------
+
+  noise_controller.py   메인 (Firebase 폴링 → 마스킹 결정 → 명령 전송)
+  masking_decider.py    noiseEvent + FFT 프로필 → MaskingDecision
+  firebase_client.py    Firebase 초기화·이벤트 조회
+  player_client.py      15_player_ai 명령 IPC (PlayerCommandWriter)
+  player_command.py     재생 명령 JSON IPC 헬퍼 (build_command, write_command)
+  requirements.txt      firebase-admin
+  run.sh                실행 래퍼
+
+
+실행 방법
+--------------------------------------------------------------------------------
+
+  # 3터미널 구성 (권장)
+  # 터미널 1: 9_send_firebase (마이크 → Firebase)
+  # 터미널 2: 14_noise_ai
+  cd /data/14_noise_ai
+  python3 noise_controller.py                # Firebase 폴링 + 마스킹 결정
+  python3 noise_controller.py --test-sample  # 샘플 2건으로 결정 테스트
+  python3 noise_controller.py --dry-run      # loud 샘플로 루프 테스트
+  ./run.sh
+
+  # 터미널 3: 15_player_ai (재생)
+  # 터미널 4: 16_led_ai (LED)
+
+
+마스킹 결정 로직 (masking_decider.py)
+--------------------------------------------------------------------------------
+
+  입력: noiseEvent (db, noiseType, fft.regions, maskingRequired)
+  후보: 10_masking/masking_sounds + masking_fft_profiles.json
+
+  1. db < db_threshold(40) → action=stop
+  2. maskingRequired=false → action=stop
+  3. noiseType(brown/pink/white)에 맞는 후보 필터
+  4. mic fft.regions와 후보 match_bands 유사도 계산
+  5. 결핍 대역(fill) 기준 최대 3트랙 레이어 선택
+  6. db에 비례한 음량(min 72% ~ max 100%) 산출
+  7. hold_sec(30s) 내 동일 타입이면 action=hold (트랙 교체 방지)
+
+
+IPC (player_client.py → 15_player_ai)
+--------------------------------------------------------------------------------
+
+  player_command.py는 14_noise_ai 프로젝트에 포함 (15번 폴더 import 불필요).
+  15_player_ai_pydub/player_command.py와 동일한 /tmp JSON 경로·형식을 사용.
+
+  /tmp/player_ai_command.json
+    { seq, action: "play"|"stop", tracks: [{path, name, volume, noise_type}] }
+
+  /tmp/player_ai_status.json  (15번이 작성)
+  /tmp/player_ai.lock         (15번 PID 락)
+
+
+기본 설정
+--------------------------------------------------------------------------------
+
+  profiles_json : /data/10_masking/masking_fft_profiles.json
+  sounds_dir    : /data/10_masking/masking_sounds
+  deviceId      : 8hrILeQckybyPOvhGY6R3MBio9s2_primary
+  db_threshold  : 40, db_full: 75
+  min_volume    : 0.72, max_volume: 1.0
+  hold_sec      : 30, max_tracks: 3
+  interval      : 1.0초
+
+
+프로젝트 내 역할
+--------------------------------------------------------------------------------
+
+  - PuriSound 자동 마스킹 파이프라인의 결정 두뇌
+  - 9번(센서) → 13번(모니터) → 14번(결정) → 15번(재생) → 16번(LED)
+  - 12_total의 masking_matcher + 재생 로직을 분리·고도화한 버전
+
+
+주요 이슈
+--------------------------------------------------------------------------------
+
+[1] 3프로세스 필수
+  14번만 실행하면 명령만 생성, 소리·LED 없음.
+  15_player_ai, 16_led_ai를 별도 터미널에서 실행해야 전체 동작.
+
+[2] 9_send_firebase 선행 필요
+  Firebase에 noiseEvents가 없으면 결정할 데이터 없음.
+  --test-sample / --dry-run으로 독립 테스트 가능.
+
+[3] hold_sec 트랙 교체 지연
+  30초 홀드로 빈번한 트랙 교체 방지.
+  급격한 소음 변화 시 반응 지연 가능.
+
+[4] firebase.json 의존
+  --dry-run / --test-sample 제외 시 9_send_firebase/firebase.json 필요.
+
+[5] 12_total과 경로 차이
+  14번: 프로필·MP3 모두 10_masking
+  12번: 프로필 10_masking, MP3 6_FFT
+  10_masking 프로필을 6_FFT MP3 기준으로 재생성 시 불일치 주의.
+
+[6] ModuleNotFoundError: No module named 'player_command' (2026-06-23)
+  증상:
+    python noise_controller.py 실행 시
+    player_client.py → from player_command import ... 에서 실패.
+
+  원인:
+    player_client.py가 /data/15_player_ai 에서 player_command 를 import 했으나,
+    실제 재생기 폴더명은 15_player_ai_pydub 이고 15_player_ai 는 없었음.
+
+  조치 (적용 완료):
+    1) /data/14_noise_ai/player_command.py 추가 (IPC 헬퍼를 14번에 포함)
+    2) player_client.py를 로컬 import 로 변경 (sys.path 삽입 제거)
+    3) /data/15_player_ai → 15_player_ai_pydub 심볼릭 링크 생성
+       (다른 스크립트·문서의 15_player_ai 경로 호환용)
+
+  확인:
+    cd /data/14_noise_ai
+    python noise_controller.py --help
+    python noise_controller.py --test-sample
+
+  여전히 같은 오류가 나면:
+    rm -rf /data/14_noise_ai/__pycache__
+    (이전 .pyc 캐시 삭제 후 재실행)
