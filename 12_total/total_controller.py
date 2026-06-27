@@ -19,6 +19,10 @@ import numpy as np
 import pyaudio
 
 ROOT = Path(__file__).resolve().parent
+DATA_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(DATA_ROOT))
+from puri_env import DEFAULT_YAMNET_URL  # noqa: E402
+
 SEND_FIREBASE_DIR = Path("/data/9_send_firebase")
 MIC_FFT_DIR = Path("/data/8_MIC_FFT")
 LED_VENV_PYTHON = Path("/data/1_LED/venv/bin/python3")
@@ -583,7 +587,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--yamnet-url",
-        default="http://192.168.0.59:5000",
+        default=DEFAULT_YAMNET_URL,
         help="YAMNet API URL",
     )
     parser.add_argument(

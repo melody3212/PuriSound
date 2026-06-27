@@ -133,13 +133,18 @@ from masking_decider import (  # noqa: E402
 from player_client import PlayerCommandWriter  # noqa: E402
 from server_client import DEFAULT_SERVER_URL, check_server  # noqa: E402
 
+_DATA_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_DATA_ROOT))
+from puri_env import (  # noqa: E402
+    DEFAULT_DB_URL,
+    DEFAULT_DEVICE_ID,
+    DEFAULT_DEVICE_NAME,
+    DEFAULT_OWNER_ID,
+    DEFAULT_YAMNET_URL,
+)
+
 RECORD_SECONDS = 4.0
 SEND_INTERVAL = 4.0
-DEFAULT_YAMNET_URL = "http://192.168.0.59:5000"
-DEFAULT_DB_URL = "https://lg-purisound-default-rtdb.firebaseio.com"
-DEFAULT_DEVICE_ID = "8hrILeQckybyPOvhGY6R3MBio9s2_primary"
-DEFAULT_DEVICE_NAME = "PuriSound Speaker 001"
-DEFAULT_OWNER_ID = "8hrILeQckybyPOvhGY6R3MBio9s2"
 DBFS_TO_DB_OFFSET = 100.0
 
 REGION_TO_NOISE_TYPE = {

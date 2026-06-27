@@ -1,12 +1,17 @@
 """Simple test client for the YAMNet Flask API."""
 
+import os
 import sys
 from pathlib import Path
 
 import requests
 from scipy.io import wavfile
 
-BASE_URL = "http://192.168.0.59:5000"
+_DATA_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_DATA_ROOT))
+from puri_env import DEFAULT_YAMNET_URL  # noqa: E402
+
+BASE_URL = os.environ.get("PURI_YAMNET_URL", DEFAULT_YAMNET_URL).strip()
 
 
 def make_2sec_wav(source_path: Path, output_path: Path) -> None:

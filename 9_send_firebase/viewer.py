@@ -22,7 +22,10 @@ _PIDFILE = _SCRIPT_DIR / ".send_firebase.pid"
 _LOG_PATH = _SCRIPT_DIR / "send_firebase.log"
 _SERVICE_NAME = "send-firebase.service"
 
-DEFAULT_YAMNET_URL = "http://192.168.0.59:5000"
+_DATA_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_DATA_ROOT))
+from puri_env import DEFAULT_YAMNET_URL  # noqa: E402
+
 DEFAULT_SERVER_URL = "http://127.0.0.1:5000"
 DEFAULT_STALE_SEC = 20.0
 DEFAULT_INTERVAL = 2.0

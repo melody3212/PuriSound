@@ -13,7 +13,10 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 DATA_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(DATA_ROOT))
 sys.path.insert(0, str(ROOT))
+
+from puri_env import DEFAULT_DB_URL, DEFAULT_DEVICE_ID  # noqa: E402
 
 from firebase_client import (  # noqa: E402
     debug_firebase,
@@ -38,8 +41,6 @@ from masking_decider import (  # noqa: E402
 from player_client import PlayerCommandWriter  # noqa: E402
 
 SEND_FIREBASE_DIR = DATA_ROOT / "9_send_firebase"
-DEFAULT_DB_URL = "https://lg-purisound-default-rtdb.firebaseio.com"
-DEFAULT_DEVICE_ID = "8hrILeQckybyPOvhGY6R3MBio9s2_primary"
 
 running = True
 

@@ -18,9 +18,11 @@ reexec_if_needed()
 import firebase_admin
 from firebase_admin import credentials, db, firestore
 
+_DATA_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_DATA_ROOT))
+from puri_env import DEFAULT_DB_URL, DEFAULT_DEVICE_ID  # noqa: E402
+
 SEND_FIREBASE_DIR = Path("/data/9_send_firebase")
-DEFAULT_DB_URL = "https://lg-purisound-default-rtdb.firebaseio.com"
-DEFAULT_DEVICE_ID = "8hrILeQckybyPOvhGY6R3MBio9s2_primary"
 DEFAULT_INTERVAL = 1.0
 FETCH_LIMIT = 30
 
