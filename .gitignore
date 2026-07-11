@@ -36,3 +36,8 @@ venv/
 
 # Large files (>100MB limit for GitHub)
 planning/final_presentation.pdf
+# YAMNet server ignore rules
+PuriSound_YAMNET/models/
+PuriSound_YAMNET/*.wav
+PuriSound_YAMNET/__pycache__/
+PuriSound_YAMNET/*.pyc

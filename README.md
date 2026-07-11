@@ -62,7 +62,7 @@ Raspberry Pi 기반 **소음 감지 → 마스킹 사운드 재생 → LED 동�
 | **라즈베리파이** | `9_send_firebase` (`send_firebase.py`) | 마이크 분석 · Firebase 전송 · 마스킹 결정 · IPC 명령 — **systemd 부팅 자동** |
 | **라즈베리파이** | `18_player_ai_control` (`player_run.py`) | 마스킹 재생 + **앱 음원 설정** |
 | **라즈베리파이** | `19_led_ai_control` (`led_run.py`) | LED + **앱 LED 설정** |
-| **다른 서버/PC** | `PuriSound_YAMNET` (`server.py`, `:5000`) | YAMNet 소리 분류 — **Pi가 아닌 머신에서 실행**, 9가 HTTP 호출 |
+| **다른 서버/PC** | `PuriSound_YAMNET` (`server.py`, `:5000`) | YAMNet 소리 분류 — 실시간 수집된 4초 오디오를 521종 음향 카테고리(발망치, 강아지 짖음 등)로 식별하여 회신하는 지능형 소음 분류기 (다른 서버에서 실행) |
 | 선택 | `9/viewer.py` | 9번 로컬 상태 모니터 (안 켜도 파이프라인 동작) |
 | 선택 | `13_noise_db` | Firebase `noiseEvents` 클라우드 뷰어 |
 | 선택 | `17_server` | 로컬 재생 명령 API |
@@ -142,7 +142,7 @@ Raspberry Pi 기반 **소음 감지 → 마스킹 사운드 재생 → LED 동�
 | `17_server` | 로컬 Flask 재생명령 API (선택) |
 | `18_player_ai_control` |  운영 재생기 (15 + 앱 음원) |
 | `19_led_ai_control` |  운영 LED (16 + 앱 LED) |
-| `PuriSound_YAMNET/` |  **YAMNet 분류 서버** (다른 PC에서 `server.py`) |
+| `PuriSound_YAMNET/` |  **YAMNet 분류 서버** — 라즈베리파이의 연산 자원 한계를 보완하기 위한 실시간 소음 카테고리 분류 서버 |
 | `legacy/` | Pi 3 구버전 통합 코드 |
 | `memo/` | 개발 메모 · 폴더별 설명 · `py_roles.txt` |
 
