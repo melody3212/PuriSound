@@ -1,0 +1,6 @@
+[LEMON_TERRACE] 레몬테라스 전처리.ipynb -> lemon_terrace_preprocessing.ipynb 다운로드 성공
+[LEMON_TERRACE] 레몬테라스 크롤링 -> lemon_terrace_crawling.ipynb 다운로드 성공
+[LEMON_TERRACE] 레몬테라스 크롤링 (2).ipynb -> lemon_terrace_crawling.ipynb 다운로드 성공
+[YOUTUBE] 층간소음_유튜브댓글.ipynb -> youtube_notebook.ipynb 다운로드 성공
+[YOUTUBE] 유뷰트 전처리.ipynb -> youtube_preprocessing.ipynb 다운로드 성공
+[YOUTUBE] 유튜브 전처리 후 토크나이징까지 -> youtube_preprocessing.ipynb 다운로드 실패

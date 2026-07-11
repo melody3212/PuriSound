@@ -33,3 +33,6 @@ venv/
 *.log
 *.pid
 .send_firebase.pid
+
+# Large files (>100MB limit for GitHub)
+planning/final_presentation.pdf
