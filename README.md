@@ -1,230 +1,251 @@
-# PuriSound — 데이터 분석 & 서비스 기획 파이프라인
-
-> VOC 수집 ️ NLP 데이터 분석 (임베딩, 클러스터링, IPA) ️ 서비스 기획으로 이어지는 프로젝트의 데이터 전과정 통합 저장소입니다.
-
----
-
-## 폴더 구조 (data_analyze/)
-*   notebooks/crawling/: 각 플랫폼별 크롤러 소스 코드 및 전처리 관련 주피터 노트북
-*   notebooks/embedding/: KoSentenceBERT 임베딩 모델링 및 차원축소(UMAP), 토픽 클러스터링(LDA) 모델링 코드
-*   notebooks/analysis/: 액터-액션 분류 및 IPA(Importance-Performance Analysis) 기회영역 분석 코드
-
----
-
-## 데이터 분석 요약
-
-### 1. 데이터 수집 (VOC Crawling)
-*   채널: 유튜브(층간소음 피해자 채널), 블라인드(직장인 커뮤니티), 네이버 카페(레몬테라스 등), 네이버 지식인, 당근마켓
-*   규모: 총 71,233건 수집 ️ 전처리 후 58,566건 유효 데이터 확보 (2023~2026년 기준)
-
-### 2. 데이터 전처리
-*   특수문자·이모지 제거, 한글 형태소 분석, 동의어 표준화(예: '층소', '발망치' ️ '층간소음'), 무의미한 단어 필터링을 진행했습니다.
-
-### 3. 임베딩 및 차원축소 (Embedding & Dimensionality Reduction)
-*   KoSentenceBERT 모델을 활용하여 한국어 구어체의 미묘한 뉘앙스를 고려한 고차원(768차원) 문맥 벡터 추출
-*   UMAP을 사용해 768차원을 핵심 정보 손실 없이 5차원으로 축소하여 군집화 성능을 향상시켰습니다.
-
-### 4. 클러스터링 및 액터 도출 (K-Means & Actor Analysis)
-*   K-Means 알고리즘(Elbow & Silhouette 지표 기준 K=4 최적화)을 통해 고객 페인포인트 유형 분류
-*   ACTOR 0 (45.5%): 발망치·새벽 소음 등 만성적인 층간소음 피해 주민
-*   ACTOR 2 (28.6%): 강아지 짖음·생활 소음 및 환경/교통 소음에 노출된 이웃 주민
-
-### 5. 기회 영역 분석 (IPA Analysis)
-*   Relative Importance(중요도)와 Relative Satisfaction(만족도) 매트릭스를 기반으로 최우선 대처가 필요한 핵심 소음 유형 분석 ️ 충격음(발망치), 보복소음 우려, 불면증 유발 음역을 긴급 마스킹 대상으로 선정했습니다.
-
----
-
-## 서비스 기획 (Service Concept & CX Strategy)
-
-*   Pain Point: 공동 주택 특성상 외부 소음을 물리적으로 100% 차단할 수 없다는 무력감, 그리고 이웃과의 대면 충돌 우려
-*   CX 목표: 소음의 '완전한 제거'가 아닌, 맞춤형 대응 사운드 재생을 통한 '정서적 통제감 회복' 및 취약 시간대 안식 보장
-*   ThinQ 기반 5+1 모드:
-    1.  층간소음 마스킹 모드: 발망치 및 충격음 마스킹 (저음역 위주 Brown Noise 분사)
-    2.  외부 소음 차폐 모드: 도로 경적, 오토바이 배기음 등 마스킹 (고주파 차단 자연음 결합)
-    3.  집중 몰입 모드: 백색소음을 통한 독서·재택근무 집중 유도
-    4.  딥슬립 케어 모드: 수면 뇌파 안정을 돕는 서서히 작아지는 슬립 노이즈
-    5.  펫 홈 케어 모드: 보호자 부재 시 반려동물의 심리적 안정을 위한 힐링 사운드
-    6.  AI 자동 통합 모드: 실시간 FFT 주파수 분석을 통해 EQ 및 마스킹 볼륨을 자동 튜닝 (Dynamic EQ)
-
-
----
-
 # Puri Sound
 
-Raspberry Pi 기반 **소음 감지 → 마스킹 사운드 재생 → LED 동기화 → Firebase · 앱 연동** 프로젝트입니다.
+LG DX School 프로젝트 — **VOC 데이터 분석·서비스 기획**과 Raspberry Pi 기반 **소음 감지 → 마스킹 재생 → LED → Firebase·앱 연동** 구현을 한 저장소에 담습니다.
 
-번호별 폴더로 하드웨어 테스트부터 운영 파이프라인까지 구성합니다.
+> 기획·수치의 기준 문서: 팀 포트폴리오 `puri_sound_overview.html` (로컬 백업)  
+> 이 README는 그 내용을 레포 구조에 맞게 정리한 운영·재현 가이드입니다.
 
-## 운영 구성 (현재)
+## 목차
+
+1. [한 줄 정의](#한-줄-정의)
+2. [데이터 분석 & 서비스 기획](#데이터-분석--서비스-기획)
+3. [하드웨어·운영 파이프라인](#하드웨어운영-파이프라인)
+4. [환경 설정](#환경-설정)
+5. [빠른 시작](#빠른-시작)
+6. [Firebase · 앱](#firebase--앱)
+7. [보안](#보안)
+8. [문서·외부 자료](#문서외부-자료)
+
+---
+
+## 한 줄 정의
+
+주변 소음을 실시간으로 감지·분석하고, 유형·주파수에 맞는 대응 사운드(Brown / Pink / White 및 자연음)와 LED 피드백을 제공해 **수면·집중·휴식**을 지키는 생활 밀착형 스마트홈 서비스입니다.
+
+| 레이어 | 내용 |
+|--------|------|
+| **기획 (BX/CX)** | VOC 71,233건 분석 → 액터 3종 → ThinQ **5+1 모드** |
+| **디바이스** | Pi: `9` 감지·결정 + `18` 재생 + `19` LED / 외부: YAMNet 서버 |
+| **앱** | Flutter(ThinQ 프로토타입) → Firebase `settings/app` → 18·19 폴링 |
+
+---
+
+## 데이터 분석 & 서비스 기획
+
+상세 복제본: [`data_analyze/README.md`](data_analyze/README.md)
+
+### 수집·전처리 규모 (overview 기준)
+
+| 단계 | 규모 | 설명 |
+|------|------|------|
+| 크롤링 원본 | **71,233건** | 유튜브·블라인드·네이버 카페·지식인·당근마켓 |
+| 전처리 완료 | **약 58,566건** | 특수문자·이모지·짧은 글 제거, 동의어(층소·발망치→층간소음), 불용어 (2023~2026) |
+| 액터(K-Means) 분석 | **58,424건** | 전처리 후 클러스터링 직전 추가 정제분. 액터 비중·건수의 분모 |
+
+### 크롤링 코드는 이 레포에 필요한가?
+
+**Pi 운영·데모·앱 연동에는 필요 없습니다.**  
+크롤링은 **과거 VOC를 모아 기획(액터·모드)을 도출한 연구 단계**입니다. 이미 도출된 액터·모드·마스킹 정책이 코드/문서에 반영되어 있으면 디바이스는 그 결과만 사용합니다.
+
+| 구분 | 위치 | 용도 |
+|------|------|------|
+| 이 레포 | `data_analyze/notebooks/` | 전처리·임베딩·클러스터·IPA **일부** 노트북 (유튜브·레몬테라스 예시 포함) |
+| 외부 (선택) | [Google Drive — 크롤링 코드](https://drive.google.com/drive/folders/1RPz5aWZ2aFgLKgWM7nP5zahUVbhfOVFu) | 채널별 전체 수집 스크립트 보관. **분석 재현·과제 제출용**일 때만 필요 |
+
+→ Drive 코드를 레포에 넣지 않은 이유: 용량·플랫폼 의존·API 키 이슈. 필요 시 Drive에서 받아 로컬에서만 실행하세요.
+
+### 임베딩·클러스터링 (최종 채택)
+
+overview와 동일:
+
+1. **KoSentenceBERT** 768차원 문맥 벡터  
+2. **PCA 150차원** → **UMAP 5차원** (10차원 대비 분리 우수)  
+3. **K-Means K=3** (Elbow·Silhouette) → 핵심 액터 3종  
+
+> `data_analyze/notebooks/embedding/kosentence_bert_k5.ipynb` 등 **K=5 실험 노트북**은 탐색용입니다. **서비스 기획·액터 정의의 기준은 K=3** 입니다.
+
+### 액터 (K=3, 58,424건 기준)
+
+| 액터 | 정의 | 비중 | 건수 | 대표 키워드 |
+|------|------|------|------|-------------|
+| **ACTOR 0** | 층간소음 피해 주민 — 발망치·아이 뜀·새벽 | **45.5%** | 26,670 | 층간소음, 들리다, 소리, 뛰다, 새벽, 아이 |
+| **ACTOR 1** | 커뮤니티 갈등 중재 운영진 — 저격·욕설 중재 | **25.63%** | 15,002 | 공격, 안내, 게시판, 경고, 욕설 |
+| **ACTOR 2** | 반려동물·생활소음 피해 — 짖음·이웃 눈치 | **28.6%** | 16,752 | 뛰다, 강아지, 짖다 |
+
+### 서비스 기획 — Pain / CX / 5+1 모드
+
+* **Pain**: 소음을 물리적으로 100% 막을 수 없다는 무력감, 대면·게시판 갈등, 생활·펫 소음 스트레스  
+* **CX 목표**: 완전 제거가 아니라 **맞춤 대응 사운드·자동 개입**으로 통제감·안식 회복, 비대면으로 분쟁 소지 완화  
+* **5+1 모드 (앱 UX)**: 층간소음 마스킹 · 외부 소음 차폐 · 집중 몰입 · 딥슬립 케어 · 펫 홈 케어 + **AI 통합**
+
+#### 액터 → 모드 매핑
+
+| 액터 | 핵심 페인 | 우선 모드 |
+|------|-----------|-----------|
+| 0 | 발망치·새벽 충격음 | 층간소음 마스킹, 딥슬립, AI 자동 |
+| 1 | 게시판 갈등 중재 부담 (간접 이해관계자) | AI 자동, 취약 시간대 딥슬립·집중 (피해 가구 선제 대응 → 분쟁 유입 완화) |
+| 2 | 강아지·생활소음·눈치 | 외부 소음 차폐, 펫 홈 케어, 집중 몰입 |
+
+#### 앱 모드(5+1) ↔ 디바이스 구현 매핑
+
+기획 모드 이름과 파이썬 변수명이 1:1이 아닙니다. **앱/문서 = UX 모드**, **Pi = `noiseType` + 음원 버전 + autoMasking**.
+
+| ThinQ / 기획 모드 | 디바이스 쪽 (대략) | 비고 |
+|-------------------|-------------------|------|
+| 층간소음 마스킹 | `noiseType=brown` (저음역 위주 버전) | 충격·저주파 |
+| 외부 소음 차폐 | `noiseType=pink` (+ 자연음 계열 파일) | 환경·고주 성분 |
+| 집중 몰입 | `pink` / `white` | 주간 생활소음 |
+| 딥슬립 케어 | `brown` 소프트 버전 + 볼륨 페이드 | 취약 시간대 |
+| 펫 홈 케어 | 진정 계열 음원 (`pink`/`white` 등) | 원인·피해 양측 |
+| AI 통합 | 9번 FFT·YAMNet → 마스킹 결정 → 18 재생 | `autoMasking=true` 일 때 자동 |
+
+### 폴더 (`data_analyze/`)
+
+* `notebooks/crawling/` — 예시: 유튜브·레몬테라스 (전체 채널 크롤러는 Drive)  
+* `notebooks/embedding/` — 임베딩·UMAP·LDA·K 실험  
+* `notebooks/analysis/` — IPA·기회영역  
+
+---
+
+## 하드웨어·운영 파이프라인
+
+### 운영 구성 (이 레포 기준)
 
 | 위치 | 구성 | 역할 |
 |------|------|------|
-| **라즈베리파이** | `9_send_firebase` (`send_firebase.py`) | 마이크 분석 · Firebase 전송 · 마스킹 결정 · IPC 명령 — **systemd 부팅 자동** |
-| **라즈베리파이** | `18_player_ai_control` (`player_run.py`) | 마스킹 재생 + **앱 음원 설정** |
-| **라즈베리파이** | `19_led_ai_control` (`led_run.py`) | LED + **앱 LED 설정** |
-| **다른 서버/PC** | `PuriSound_YAMNET` (`server.py`, `:5000`) | YAMNet 소리 분류 — 실시간 수집된 4초 오디오를 521종 음향 카테고리(발망치, 강아지 짖음 등)로 식별하여 회신하는 지능형 소음 분류기 (다른 서버에서 실행) |
-| 선택 | `9/viewer.py` | 9번 로컬 상태 모니터 (안 켜도 파이프라인 동작) |
-| 선택 | `13_noise_db` | Firebase `noiseEvents` 클라우드 뷰어 |
-| 선택 | `17_server` | 로컬 재생 명령 API |
+| **Pi** | `9_send_firebase` | 마이크·FFT·(선택)YAMNet · Firebase 전송 · 마스킹 결정 · IPC — **systemd 자동** |
+| **Pi** | `18_player_ai_control` | 마스킹 재생 + 앱 음원 설정 폴링 |
+| **Pi** | `19_led_ai_control` | LED + 앱 LED 설정 폴링 |
+| **다른 PC** | `PuriSound_YAMNET` | YAMNet 521종 분류 (`:5000`) |
+| 폴백 | `15_player_ai` / `16_led_ai` | IPC만 (앱 설정 없음) |
+| 선택 | `viewer.py`, `13_noise_db`, `17_server` | 모니터·뷰어·로컬 API |
 
 ```
-[다른 서버]  PuriSound_YAMNET/server.py (:5000)  ──────┐
-                                                       │ HTTP POST /classify
-[Pi systemd] 9 send_firebase  → Firebase noiseEvents   │
-                 │ 마스킹 결정                         │
-                 ▼                                     │
-         /tmp/player_ai_command.json                   │
-                 │                                     │
-[Pi] 18 player_run  → 재생 → /tmp/player_ai_status.json│
-[Pi] 19 led_run     → LED                              │
-                                                       │
-[앱] ──write──▶ Firebase users/{uid}/settings/app ◀── 18·19 poll
+[YAMNet PC] server.py :5000  ──POST /classify──┐
+                                               │
+[Pi] 9 send_firebase → Firebase noiseEvents    │
+        │ 마스킹 결정                          │
+        ▼                                      │
+ /tmp/player_ai_command.json                   │
+        │                                      │
+[Pi] 18 player_run → 재생  (음원: 10_masking 또는 로컬 masking_sounds)
+[Pi] 19 led_run    → LED
+                                               │
+[앱] write → users/{uid}/settings/app ← poll 18·19
 ```
 
-**한 줄:** Pi에서 **9 + 18 + 19**, 다른 서버에서 **`PuriSound_YAMNET`** 켜면 정상 동작.  
-`viewer.py`는 확인용입니다. YAMNet이 꺼져 있어도 9는 FFT 분류만으로 동작합니다.
+**한 줄:** Pi에서 **9 + 18 + 19**, 다른 호스트에서 **YAMNet** → 동작. YAMNet OFF여도 9는 **FFT만**으로 동작.
 
-### 15 / 16 → 18 / 19
+#### 음원 경로
 
-| 구버전 | 현재 | 차이 |
+- 카탈로그·FFT 프로필: `10_masking/masking_sounds/`, `masking_fft_profiles.json`
+- **18번은 자체 `masking_sounds`가 없어도 됨** → 상위 `10_masking/masking_sounds` 를 폴백으로 사용
+- `15_player_ai/masking_sounds` 는 구버전 복사본(중복 MP3 가능)
+
+#### 15/16 → 18/19
+
+| 구버전 | 운영 | 차이 |
 |--------|------|------|
-| `15_player_ai` | `18_player_ai_control` | 15 + 앱(Firebase) **음원** 제어 |
-| `16_led_ai` | `19_led_ai_control` | 16 + 앱(Firebase) **LED** 제어 |
+| `15_player_ai` | `18_player_ai_control` | + Firebase 앱 음원 |
+| `16_led_ai` | `19_led_ai_control` | + Firebase 앱 LED |
 
-앱 설정 경로 예: `users/{ownerId}/settings/app`  
-(`autoMasking`, `noiseType`, `volume`, `ledMode`, `ledColor`, `ledBrightness` 등)
+- `14_noise_ai`: 구 결정 전용 → 지금은 9가 담당, 보통 생략  
+- `12_total`: 올인원 실험 → **미사용** (9와 마이크 충돌)
 
-- `14_noise_ai`: 예전 “결정 전용” 분리 모듈. 지금은 9가 결정·IPC를 상당 부분 수행 → **보통 생략**
-- `12_total`: 올인원 실험 — **미사용** (9와 마이크 충돌)
-
-## 전체 폴더 흐름
-
-```
-[하드웨어 테스트]
-  1_LED → 2_speaker → 3_mic → 4_loadtest
-
-[소음 분석 · 클라우드]
-  8_MIC_FFT (FFT 엔진) → 9_send_firebase (전송+결정+IPC, 부팅 자동)
-  5_noise_client (YAMNet API 테스트 클라이언트 — 서버 아님)
-  13_noise_db (Firebase 모니터링)
-
-[마스킹 준비 · 수동 재생]
-  6_FFT (MP3 FFT 사전 분석) → 10_masking (라이브러리·프로필)
-  7_Player (수동 재생) + 11_led_connect (7번용 LED)
-
-[운영 파이프라인 ]
-  9 → 18 → 19   (+ PuriSound_YAMNET on another host)
-
-[구 분리 구조 — 참고]
-  9 → 14(결정) → 15(재생) → 16(LED)
-```
-
-## 폴더 구조
+### 폴더 구조
 
 | 폴더 | 설명 |
 |------|------|
-| `1_LED` | NeoPixel LED (SPI) 테스트 · 공통 `config` / venv |
-| `2_speaker` | 3.5mm 스피커 테스트 |
-| `3_mic` | USB 마이크 테스트 |
-| `4_loadtest` | LED+스피커+마이크 부하 테스트 |
-| `5_noise_client` | YAMNet API **테스트 클라이언트** (서버 아님) |
-| `6_FFT` | 마스킹 MP3 FFT 사전 분석 |
-| `7_Player` | 마스킹 MP3 수동 재생 |
-| `8_MIC_FFT` | 실시간 마이크 FFT (9가 import) |
-| `9_send_firebase` |  감지·전송·마스킹 결정·IPC (`systemd` + `viewer.py`) |
-| `10_masking` | 마스킹 MP3 · FFT 프로필 데이터 |
-| `11_led_connect` | 7_player ↔ LED 동기화 프로토타입 |
-| `12_total` | 올인원 실험 (**미사용**) |
-| `13_noise_db` | Firebase `noiseEvents` 뷰어 |
-| `14_noise_ai` | 구 마스킹 결정 전용 |
-| `15_player_ai` | 구 재생기 (IPC만) |
-| `16_led_ai` | 구 LED (재생 연동만) |
-| `17_server` | 로컬 Flask 재생명령 API (선택) |
-| `18_player_ai_control` |  운영 재생기 (15 + 앱 음원) |
-| `19_led_ai_control` |  운영 LED (16 + 앱 LED) |
-| `PuriSound_YAMNET/` |  **YAMNet 분류 서버** — 라즈베리파이의 연산 자원 한계를 보완하기 위한 실시간 소음 카테고리 분류 서버 |
-| `legacy/` | Pi 3 구버전 통합 코드 |
-| `memo/` | 개발 메모 · 폴더별 설명 · `py_roles.txt` |
+| `1_LED` … `4_loadtest` | 하드웨어 단위 테스트 |
+| `5_noise_client` | YAMNet **테스트 클라이언트** (서버 아님) |
+| `6_FFT` / `10_masking` | 마스킹 MP3 FFT 분석·라이브러리 |
+| `7_player` / `11_led_connect` | 수동 재생·LED 프로토타입 |
+| `8_MIC_FFT` | 실시간 FFT (9가 import) |
+| `9_send_firebase` | 운영 감지·전송·결정·IPC |
+| `12_total` | 미사용 올인원 |
+| `13_noise_db` | Firebase 이벤트 뷰어 |
+| `14_noise_ai` | 구 결정 모듈 |
+| `15_player_ai` / `16_led_ai` | 구 재생·LED |
+| `17_server` | 로컬 재생 명령 API (선택) |
+| `18_player_ai_control` / `19_led_ai_control` | **운영** 재생·LED |
+| `PuriSound_YAMNET/` | YAMNet 서버 |
+| `data_analyze/` | VOC 분석 노트북 |
+| `legacy/` | Pi3 구코드 |
+| `memo/` | **로컬 전용** (gitignore, IP·경로 메모) |
+| `puri_env.py`, `.env.example` | 공통 환경변수 |
 
-## 요구 환경
+---
 
-- **OS**: Raspberry Pi OS (실행 대상), Windows에서도 코드·문서 편집 가능
-- **Python**: 3.11+ 권장
-- **하드웨어** (Pi)
-  - USB 마이크
-  - 3.5mm 자체 전원 앰프 스피커
-  - NeoPixel LED — **SPI GPIO 10** (PWM GPIO 12는 오디오와 충돌)
-- **네트워크**: Firebase · (선택) YAMNet 서버 접근
-
-## 빠른 시작 (운영)
-
-### 1) 9번 — 부팅 시 자동 (`send_firebase`)
+## 환경 설정
 
 ```bash
-# 최초 1회 (Pi, 경로가 /data 인 경우)
+cp .env.example .env
+# .env 값을 채운 뒤 사용 (커밋 금지)
+```
+
+| 변수 | 설명 |
+|------|------|
+| `PURI_YAMNET_URL` | YAMNet URL (예: `http://<SERVER_IP>:5000`) |
+| `PURI_FIREBASE_DB_URL` | Realtime Database URL |
+| `PURI_DEVICE_ID` | 디바이스 ID |
+| `PURI_OWNER_ID` | 앱 사용자 uid |
+| `PURI_DEVICE_NAME` | 표시 이름 |
+
+- Firebase 서비스 계정: `9_send_firebase/firebase.json` 등 **로컬만** (gitignore)  
+- `send-firebase.service` 기본값: 경로 `/data/...`, 사용자 `hwchoi` → **본인 Pi에 맞게 수정**
+
+---
+
+## 빠른 시작
+
+### 의존성
+
+폴더에 `requirements.txt`가 있으면 해당 폴더에서:
+
+```bash
+cd 9_send_firebase
+python3 -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+`8_MIC_FFT`, `13_noise_db`, `15`~`19`, `PuriSound_YAMNET` 등도 동일.
+
+### 9 — 감지 (부팅 자동 예시)
+
+```bash
+# service 파일의 User / WorkingDirectory / ExecStart 수정 후
 sudo cp /data/9_send_firebase/send-firebase.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now send-firebase.service
-
-systemctl status send-firebase.service
 ```
 
-상태 모니터 (선택):
-
 ```bash
-cd /data/9_send_firebase
-python3 viewer.py
-```
-
-수동 실행 예:
-
-```bash
-cd /data/9_send_firebase
-.venv/bin/python3 send_firebase.py
+python3 send_firebase.py
 python3 send_firebase.py --dry-run
-python3 send_firebase.py --no-yamnet    # YAMNet 없이 FFT만
+python3 send_firebase.py --no-yamnet
+python3 send_firebase.py --yamnet-url http://<SERVER_IP>:5000
+python3 viewer.py   # 선택
 ```
 
-### 2) 18번 — 재생
+### 18 / 19 — 재생 · LED
 
 ```bash
-cd /data/18_player_ai_control
-./run.sh
-# 또는
-python3 player_run.py
+cd 18_player_ai_control && ./run.sh   # 또는 python3 player_run.py
+cd 19_led_ai_control && ./run.sh
 ```
 
-### 3) 19번 — LED
-
-```bash
-cd /data/19_led_ai_control
-./run.sh
-# 또는
-python3 led_run.py
-```
-
-### 4) YAMNet 서버 (`PuriSound_YAMNET` — 다른 PC/서버)
-
-코드는 이 레포의 [`PuriSound_YAMNET/`](PuriSound_YAMNET/) 에 있습니다. **라즈베리파이가 아닌 머신**에서 실행하세요.
+### YAMNet (다른 머신 권장)
 
 ```bash
 cd PuriSound_YAMNET
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-# Linux:   source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python server.py
-# → http://0.0.0.0:5000  (POST /classify, GET /health)
+python server.py   # :5000  GET /health  POST /classify
 ```
 
-- 상세: [`PuriSound_YAMNET/README.md`](PuriSound_YAMNET/README.md)
-- 9번 기본 URL 예: `http://172.16.11.110:5000` — 서버 IP가 다르면  
-  `python3 send_firebase.py --yamnet-url http://<서버IP>:5000`
-- 서버 OFF여도 9는 **FFT만**으로 동작
-- `5_noise_client`는 테스트 클라이언트일 뿐, 서버가 아님
-- 입력 WAV는 약 **4초** (서버 제약)
+상세: [`PuriSound_YAMNET/README.md`](PuriSound_YAMNET/README.md)
 
-### 하드웨어 단위 테스트
+### 하드웨어 스모크
 
 ```bash
 cd 1_LED && ./venv/bin/python3 neopixel_test.py
@@ -232,56 +253,61 @@ cd 2_speaker && python3 speaker_test.py
 cd 3_mic && python3 mic_test.py
 ```
 
-## Firebase · 앱 설정
+LED는 **SPI GPIO 10** (PWM GPIO 12는 오디오와 충돌).
 
-1. Firebase 서비스 계정 JSON 발급 → **로컬만** 배치  
-   예: `9_send_firebase/firebase.json` (`.gitignore` 포함)
-2. 9 · 13 · 14 · 18 · 19 등이 Admin SDK로 사용
-3. 앱 UI는 `users/{uid}/settings/app` 에 설정을 쓰고, **18·19가 폴링**해 반영  
-   (앱 ↔ Pi 소켓 직결이 아니라 **Firebase 경유**)
+---
 
-시크릿이 노출된 적이 있으면 키를 재발급하세요.
+## Firebase · 앱
 
-## 마스킹 사운드
+1. 서비스 계정 JSON → 로컬 `firebase.json` (커밋 금지)  
+2. 앱이 `users/{uid}/settings/app` 에 설정 write → **18·19 폴링**  
+3. Flutter 프로토타입: 별도 레포 예) [suuuhyuni/LG-PuriSound](https://github.com/suuuhyuni/LG-PuriSound) (이 레포에는 앱 소스 없음)
 
-- `10_masking/masking_sounds/`, `masking_fft_profiles.json` — 9/14 결정 엔진 후보
-- `6_FFT/analyze_masking_fft.py` — FFT 프로필 생성
-- 대용량 MP3는 필요 시 `.gitignore`에서 제외 가능
+### `settings/app` 예시
+
+```json
+{
+  "autoMasking": true,
+  "noiseType": "brown",
+  "noiseVersion": 1,
+  "volume": 0.7,
+  "ledMode": "noise",
+  "ledColor": "#4FC3F7",
+  "ledBrightness": 0.5
+}
+```
+
+| 필드 | 의미 |
+|------|------|
+| `autoMasking` | false면 9의 자동 재생 명령을 18이 무시·정지 |
+| `noiseType` | `brown` / `pink` / `white` |
+| `noiseVersion` | 타입별 음원 버전 (카탈로그) |
+| `volume` | 0~1 (일부 클라이언트는 `volumn` 오타 키도 허용) |
+| `ledMode` / `ledColor` / `ledBrightness` | 19번 LED |
+
+---
 
 ## 보안
 
-| 항목 | 이유 |
+| 항목 | 처리 |
 |------|------|
-| `github_pat.txt` | GitHub 토큰 |
-| `**/firebase.json` | 서비스 계정 private key |
-| `venv/`, `.venv/`, `__pycache__/` | 환경·캐시 |
-| `*.log` | 런타임 로그 |
+| `.env`, `**/firebase.json` | gitignore |
+| `memo/` | gitignore (내부 IP·경로) |
+| API 키 | **코드·노트북에 하드코딩 금지** → 환경변수 |
+| YouTube 수집 | `YOUTUBE_API_KEY` 환경변수. 과거에 키가 커밋된 적 있으면 **콘솔에서 키 폐기·재발급** |
 
-## 문서
+---
 
-상세는 `memo/` · YAMNet 폴더 README를 보세요.
+## 문서·외부 자료
 
-| 파일 | 내용 |
+| 자료 | 내용 |
 |------|------|
-| [`memo/memo.txt`](memo/memo.txt) | 전체 지도 · 운영 치트시트 |
-| [`memo/py_roles.txt`](memo/py_roles.txt) | **전체 `.py` 파일별 역할** |
-| `memo/1_LED.txt` … `memo/19_led_ai_control.txt` | 폴더별 설명 · 파일 역할 |
-| [`PuriSound_YAMNET/README.md`](PuriSound_YAMNET/README.md) | YAMNet 서버 설치·API·연동 |
-| `memo/legacy.txt` | 구버전 참고 |
-| `memo/basic/` | 하드웨어·venv 트러블슈팅 |
-
-## Git (변경분만)
-
-이미 원격이 있으면 수정·추가된 파일만 커밋·푸시됩니다.
-
-```bash
-git status
-git add -u                 # 추적 중 변경만
-# 또는 git add memo README.md
-git commit -m "메시지"
-git push
-```
+| [`data_analyze/README.md`](data_analyze/README.md) | 분석·기획 상세 |
+| [`PuriSound_YAMNET/README.md`](PuriSound_YAMNET/README.md) | YAMNet API |
+| [Drive 크롤링 코드](https://drive.google.com/drive/folders/1RPz5aWZ2aFgLKgWM7nP5zahUVbhfOVFu) | 선택 — 연구 재현용 |
+| 로컬 `puri_sound_overview.html` | 기획·아키텍처·트러블슈팅 기준 문서 |
+| `memo/` (로컬) | 폴더별 치트시트 |
 
 ## 라이선스
 
-내부 프로젝트로 사용 중입니다. 공개 시 라이선스와 시크릿 제외를 다시 확인하세요.
+내부·과제 프로젝트 용도입니다. 공개 배포 시 라이선스와 시크릿·대용량 음원 라이선스를 재확인하세요.
